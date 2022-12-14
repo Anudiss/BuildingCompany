@@ -3,10 +3,32 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        mc:Ignorable="d"
+        xmlns:nav="clr-namespace:BuildingCompany.Windows.Navigation"
         xmlns:components="clr-namespace:BuildingCompany.Components"
-        Title="MainWindow" Height="450" Width="800">
+        mc:Ignorable="d"
+        Title="Главное окно"
+        Height="720" Width="1024">
+
+    <Window.DataContext>
+        <nav:NavigationVM/>
+    </Window.DataContext>
+
     <Grid>
-        <components:TextInput VerticalAlignment="Top"/>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="200"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <!--#region Navigation sidebar-->
+        <StackPanel Orientation="Vertical"
+                    Grid.Column="0"
+                    Background="#444444">
+            <components:NavigationButton Icon="Home" Title="Дома" Command="{Binding HouseCommand}"/>
+        </StackPanel>
+        <!--#endregion-->
+        <!--#region Content-->
+        <ContentControl Grid.Column="1"
+                        Content="{Binding CurrentView}"/>
+        <!--#endregion-->
     </Grid>
 </Window>

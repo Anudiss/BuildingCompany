@@ -1,0 +1,16 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:housevm="clr-namespace:BuildingCompany.ViewModels.HouseViewModels"
+                    xmlns:houseviews="clr-namespace:BuildingCompany.Views.HouseViews">
+
+    <DataTemplate DataType="{x:Type housevm:HouseVM}">
+        <houseviews:HouseView/>
+    </DataTemplate>
+    <DataTemplate DataType="{x:Type housevm:HousePageVM}">
+        <houseviews:HousePageView/>
+    </DataTemplate>
+    <DataTemplate DataType="{x:Type housevm:EditHouseVM}">
+        <houseviews:EditHouseView/>
+    </DataTemplate>
+    
+</ResourceDictionary>
