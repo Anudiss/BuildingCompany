@@ -1,7 +1,7 @@
 ﻿using BuildingCompany.Connection;
 using System;
 
-namespace BuildingCompany.ViewModels.MaterialViewModels
+namespace BuildingCompany.ViewModels.HouseViewModels
 {
     public class MaterialGridRowVM : ViewModelBase
     {

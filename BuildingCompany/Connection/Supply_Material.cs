@@ -16,7 +16,9 @@ namespace BuildingCompany.Connection
     {
         public int Supply_id { get; set; }
         public int Material_id { get; set; }
+        public decimal Cost { get; set; }
         public decimal Count { get; set; }
+        public bool IsDeleted { get; set; }
     
         public virtual Material Material { get; set; }
         public virtual Supply Supply { get; set; }

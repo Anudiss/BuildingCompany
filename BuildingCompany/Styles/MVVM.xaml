@@ -1,8 +1,19 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:housevm="clr-namespace:BuildingCompany.ViewModels.HouseViewModels"
-                    xmlns:houseviews="clr-namespace:BuildingCompany.Views.HouseViews">
+                    xmlns:houseviews="clr-namespace:BuildingCompany.Views.HouseViews"
+                    xmlns:materialvm="clr-namespace:BuildingCompany.ViewModels.MaterialViewModels"
+                    xmlns:materialviews="clr-namespace:BuildingCompany.Views.MaterialViews"
+                    xmlns:authvm="clr-namespace:BuildingCompany.Windows.Auth.ViewModel"
+                    xmlns:authview="clr-namespace:BuildingCompany.Windows.Auth.View"
+                    xmlns:suppliervm="clr-namespace:BuildingCompany.ViewModels.SupplierViewModels"
+                    xmlns:suppliervews="clr-namespace:BuildingCompany.Views.SupplierViews"
+                    xmlns:employeevm="clr-namespace:BuildingCompany.ViewModels.EmployeeViewMmodels"
+                    xmlns:employeeviews="clr-namespace:BuildingCompany.Views.EmployeeViews"
+                    xmlns:supplyvm="clr-namespace:BuildingCompany.ViewModels.SupplyViewModels"
+                    xmlns:supplyviews="clr-namespace:BuildingCompany.Views.SupplyViews">
 
+    <!--#region House links-->
     <DataTemplate DataType="{x:Type housevm:HouseVM}">
         <houseviews:HouseView/>
     </DataTemplate>
@@ -12,5 +23,58 @@
     <DataTemplate DataType="{x:Type housevm:EditHouseVM}">
         <houseviews:EditHouseView/>
     </DataTemplate>
-    
+    <!--#endregion-->
+    <!--#region Material links-->
+    <DataTemplate DataType="{x:Type materialvm:MaterialVM}">
+        <materialviews:MaterialView/>
+    </DataTemplate>
+    <DataTemplate DataType="{x:Type materialvm:MaterialPageVM}">
+        <materialviews:MaterialPageView/>
+    </DataTemplate>
+    <DataTemplate DataType="{x:Type materialvm:EditMaterialVM}">
+        <materialviews:EditMaterialView/>
+    </DataTemplate>
+    <!--#endregion-->
+    <!--#region Auth links-->
+    <DataTemplate DataType="{x:Type authvm:LoginVM}">
+        <authview:LoginView/>
+    </DataTemplate>
+    <DataTemplate DataType="{x:Type authvm:RegisterVM}">
+        <authview:RegisterView/>
+    </DataTemplate>
+    <!--#endregion-->
+    <!--#region Supplier links-->
+    <DataTemplate DataType="{x:Type suppliervm:SupplierVM}">
+        <suppliervews:SupplierView/>
+    </DataTemplate>
+    <DataTemplate DataType="{x:Type suppliervm:SupplierPageVM}">
+        <suppliervews:SupplierPageView/>
+    </DataTemplate>
+    <DataTemplate DataType="{x:Type suppliervm:EditSupplierVM}">
+        <suppliervews:EditSupplierView/>
+    </DataTemplate>
+    <!--#endregion-->
+    <!--#region Employee links-->
+    <DataTemplate DataType="{x:Type employeevm:EmployeeVM}">
+        <employeeviews:EmployeeView/>
+    </DataTemplate>
+    <DataTemplate DataType="{x:Type employeevm:EmployeePageVM}">
+        <employeeviews:EmployeePageView/>
+    </DataTemplate>
+    <DataTemplate DataType="{x:Type employeevm:EditEmployeeVM}">
+        <employeeviews:EditEmployeeView/>
+    </DataTemplate>
+    <!--#endregion-->
+    <!--#region Supply links-->
+    <DataTemplate DataType="{x:Type supplyvm:SupplyVM}">
+        <supplyviews:SupplyView/>
+    </DataTemplate>
+    <DataTemplate DataType="{x:Type supplyvm:SupplyPageVM}">
+        <supplyviews:SupplyPageView/>
+    </DataTemplate>
+    <DataTemplate DataType="{x:Type supplyvm:EditSupplyVM}">
+        <supplyviews:EditSupplyView/>
+    </DataTemplate>
+    <!--#endregion-->
+
 </ResourceDictionary>

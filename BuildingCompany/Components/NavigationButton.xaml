@@ -3,12 +3,13 @@
                     xmlns:local="clr-namespace:BuildingCompany.Components"
                     xmlns:fa="http://schemas.fontawesome.io/icons/">
 
-    <SolidColorBrush x:Key="DefaultNavigationButtonBackground" Color="#4B4B4B"/>
-    <SolidColorBrush x:Key="HoverNavigationButtonBackground" Color="#5C5C5C"/>
+    <SolidColorBrush x:Key="DefaultNavigationButtonBackground" Color="#454B59"/>
+    <SolidColorBrush x:Key="HoverNavigationButtonBackground" Color="#676F76" Opacity=".7"/>
+    <SolidColorBrush x:Key="CheckedNavigationButtonBackground" Color="#676F76"/>
     <SolidColorBrush x:Key="TextColorNavigationButton" Color="#FFFFFF"/>
     <SolidColorBrush x:Key="IconBrushNavigationButton" Color="#FFFFFF"/>
     <SolidColorBrush x:Key="DefaultIndicatorColorNavigationButton" Color="#5C5C5C"/>
-    <SolidColorBrush x:Key="CheckedIndicatorColorNavigationButton" Color="#58709F"/>
+    <SolidColorBrush x:Key="CheckedIndicatorColorNavigationButton" Color="#46498F"/>
 
     <Style TargetType="{x:Type local:NavigationButton}">
         <Setter Property="Background" Value="{StaticResource DefaultNavigationButtonBackground}"/>
@@ -59,7 +60,7 @@
 
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsChecked" Value="True">
-                            <Setter Property="Background" Value="{StaticResource HoverNavigationButtonBackground}"/>
+                            <Setter Property="Background" Value="{StaticResource CheckedNavigationButtonBackground}"/>
                             <Setter Property="IndicatorColor" Value="{StaticResource CheckedIndicatorColorNavigationButton}"/>
                         </Trigger>
                         <Trigger Property="IsMouseOver" Value="True">

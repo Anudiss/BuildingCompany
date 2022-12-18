@@ -1,0 +1,23 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <!--#region Input field-->
+    <SolidColorBrush x:Key="InputFieldDefaultUnderlineColor" Color="#343548" Opacity=".6"/>
+    <SolidColorBrush x:Key="InputFieldFocusedUnderlineColor" Color="#343548"/>
+
+    <SolidColorBrush x:Key="InputFieldDefaultTextColor" Color="#353B49" Opacity=".8"/>
+    <SolidColorBrush x:Key="InputFieldFocusedTextColor" Color="#353B49"/>
+    <SolidColorBrush x:Key="InputFieldPlaceholderColor" Color="#353B49" Opacity=".6"/>
+    <!--#endregion-->
+    <!--#region House view-->
+    <SolidColorBrush x:Key="HouseViewDefaultBackgrund" Color="#95A2AE"/>
+    <SolidColorBrush x:Key="HouseViewHoverBackgrund" Color="#738CA3"/>
+    <SolidColorBrush x:Key="HouseViewSelectedBackgrund" Color="#9F9F9F"/>
+
+    <DropShadowEffect x:Key="HouseViewHoverShadow"
+                      Color="Black"
+                      Opacity=".25" BlurRadius="2"
+                      Direction="270" ShadowDepth="4"/>
+    <!--#endregion-->
+
+</ResourceDictionary>

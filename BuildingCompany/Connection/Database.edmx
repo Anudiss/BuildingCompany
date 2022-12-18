@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="Хранилище BuildingCompanyModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="Хранилище BuildingCompanyModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Client">
           <Key>
             <PropertyRef Name="ID" />
@@ -14,7 +14,8 @@
           <Property Name="Name" Type="varchar" MaxLength="100" Nullable="false" />
           <Property Name="Patronymic" Type="varchar" MaxLength="100" />
           <Property Name="Phone" Type="varchar" MaxLength="13" Nullable="false" />
-          <Property Name="User_id" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="User_id" Type="int" Nullable="false" />
+          <Property Name="IsDeleted" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="Employee">
           <Key>
@@ -26,17 +27,10 @@
           <Property Name="Patronymic" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="BirthDay" Type="date" Nullable="false" />
           <Property Name="Photo" Type="image" />
-          <Property Name="User_login" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="User_id" Type="int" />
           <Property Name="Gender_id" Type="int" Nullable="false" />
-          <Property Name="Position_id" Type="int" />
+          <Property Name="Position_id" Type="int" Nullable="false" />
           <Property Name="IsDeleted" Type="bit" Nullable="false" />
-        </EntityType>
-        <EntityType Name="Gender">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Name" Type="varchar" MaxLength="50" Nullable="false" />
         </EntityType>
         <EntityType Name="House">
           <Key>
@@ -58,14 +52,7 @@
           <Property Name="House_id" Type="int" Nullable="false" />
           <Property Name="Material_id" Type="int" Nullable="false" />
           <Property Name="Count" Type="decimal" Precision="12" Scale="0" Nullable="false" />
-        </EntityType>
-        <EntityType Name="HousePhoto">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="House_id" Type="int" Nullable="false" />
-          <Property Name="Photo" Type="image" Nullable="false" />
+          <Property Name="IsDeleted" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="Material">
           <Key>
@@ -74,6 +61,7 @@
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Name" Type="varchar" MaxLength="100" Nullable="false" />
           <Property Name="Cost" Type="decimal" Precision="8" Scale="2" Nullable="false" />
+          <Property Name="Count" Type="decimal" Precision="12" Scale="0" Nullable="false" />
           <Property Name="IsDeleted" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="Order">
@@ -85,45 +73,7 @@
           <Property Name="House_id" Type="int" Nullable="false" />
           <Property Name="Executor_id" Type="int" />
           <Property Name="OrderStage_id" Type="int" Nullable="false" />
-          <Property Name="isDeleted" Type="bit" Nullable="false" />
-        </EntityType>
-        <EntityType Name="OrderStage">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Name" Type="varchar" MaxLength="50" Nullable="false" />
-        </EntityType>
-        <EntityType Name="Position">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Name" Type="varchar" MaxLength="50" Nullable="false" />
-        </EntityType>
-        <EntityType Name="Role">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Name" Type="varchar" MaxLength="50" Nullable="false" />
-        </EntityType>
-        <EntityType Name="Storage">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Name" Type="varchar" MaxLength="100" Nullable="false" />
           <Property Name="IsDeleted" Type="bit" Nullable="false" />
-        </EntityType>
-        <EntityType Name="Storage_Material">
-          <Key>
-            <PropertyRef Name="Material_id" />
-            <PropertyRef Name="Storage_id" />
-          </Key>
-          <Property Name="Material_id" Type="int" Nullable="false" />
-          <Property Name="Storage_id" Type="int" Nullable="false" />
-          <Property Name="Count" Type="decimal" Precision="12" Scale="0" Nullable="false" />
         </EntityType>
         <EntityType Name="Supplier">
           <Key>
@@ -131,15 +81,17 @@
           </Key>
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Name" Type="varchar" MaxLength="100" Nullable="false" />
-          <Property Name="isDeleted" Type="bit" Nullable="false" />
+          <Property Name="IsDeleted" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="Supply">
           <Key>
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Date" Type="date" Nullable="false" />
+          <Property Name="Date" Type="datetime" Nullable="false" />
           <Property Name="Supplier_id" Type="int" Nullable="false" />
+          <Property Name="IsConduct" Type="bit" Nullable="false" />
+          <Property Name="IsDeleted" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="Supply_Material">
           <Key>
@@ -148,7 +100,9 @@
           </Key>
           <Property Name="Supply_id" Type="int" Nullable="false" />
           <Property Name="Material_id" Type="int" Nullable="false" />
+          <Property Name="Cost" Type="decimal" Precision="8" Scale="2" Nullable="false" />
           <Property Name="Count" Type="decimal" Precision="12" Scale="0" Nullable="false" />
+          <Property Name="IsDeleted" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="sysdiagrams">
           <Key>
@@ -170,8 +124,9 @@
         </EntityType>
         <EntityType Name="User">
           <Key>
-            <PropertyRef Name="Login" />
+            <PropertyRef Name="ID" />
           </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Login" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="Password" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="Role_ID" Type="int" Nullable="false" />
@@ -181,46 +136,22 @@
           <End Role="Client" Type="Self.Client" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="User">
-              <PropertyRef Name="Login" />
+              <PropertyRef Name="ID" />
             </Principal>
             <Dependent Role="Client">
               <PropertyRef Name="User_id" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Employee_Gender">
-          <End Role="Gender" Type="Self.Gender" Multiplicity="1" />
-          <End Role="Employee" Type="Self.Employee" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Gender">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="Employee">
-              <PropertyRef Name="Gender_id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Employee_Position">
-          <End Role="Position" Type="Self.Position" Multiplicity="0..1" />
-          <End Role="Employee" Type="Self.Employee" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Position">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="Employee">
-              <PropertyRef Name="Position_id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_Employee_User">
-          <End Role="User" Type="Self.User" Multiplicity="1" />
+          <End Role="User" Type="Self.User" Multiplicity="0..1" />
           <End Role="Employee" Type="Self.Employee" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="User">
-              <PropertyRef Name="Login" />
+              <PropertyRef Name="ID" />
             </Principal>
             <Dependent Role="Employee">
-              <PropertyRef Name="User_login" />
+              <PropertyRef Name="User_id" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -245,18 +176,6 @@
             </Principal>
             <Dependent Role="House_Material">
               <PropertyRef Name="Material_id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_HousePhoto_House">
-          <End Role="House" Type="Self.House" Multiplicity="1" />
-          <End Role="HousePhoto" Type="Self.HousePhoto" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="House">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="HousePhoto">
-              <PropertyRef Name="House_id" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -296,42 +215,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Order_OrderStage">
-          <End Role="OrderStage" Type="Self.OrderStage" Multiplicity="1" />
-          <End Role="Order" Type="Self.Order" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="OrderStage">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="Order">
-              <PropertyRef Name="OrderStage_id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Storage_Material_Material">
-          <End Role="Material" Type="Self.Material" Multiplicity="1" />
-          <End Role="Storage_Material" Type="Self.Storage_Material" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Material">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="Storage_Material">
-              <PropertyRef Name="Material_id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Storage_Material_Storage">
-          <End Role="Storage" Type="Self.Storage" Multiplicity="1" />
-          <End Role="Storage_Material" Type="Self.Storage_Material" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Storage">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="Storage_Material">
-              <PropertyRef Name="Storage_id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_Supply_Material_Material">
           <End Role="Material" Type="Self.Material" Multiplicity="1" />
           <End Role="Supply_Material" Type="Self.Supply_Material" Multiplicity="*" />
@@ -368,32 +251,13 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_User_Role">
-          <End Role="Role" Type="Self.Role" Multiplicity="1" />
-          <End Role="User" Type="Self.User" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Role">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="User">
-              <PropertyRef Name="Role_ID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <EntityContainer Name="Хранилище BuildingCompanyModelContainer">
           <EntitySet Name="Client" EntityType="Self.Client" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Employee" EntityType="Self.Employee" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Gender" EntityType="Self.Gender" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="House" EntityType="Self.House" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="House_Material" EntityType="Self.House_Material" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="HousePhoto" EntityType="Self.HousePhoto" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Material" EntityType="Self.Material" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Order" EntityType="Self.Order" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="OrderStage" EntityType="Self.OrderStage" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Position" EntityType="Self.Position" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Role" EntityType="Self.Role" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Storage" EntityType="Self.Storage" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Storage_Material" EntityType="Self.Storage_Material" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Supplier" EntityType="Self.Supplier" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Supply" EntityType="Self.Supply" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Supply_Material" EntityType="Self.Supply_Material" Schema="dbo" store:Type="Tables" />
@@ -404,14 +268,6 @@
             <End Role="User" EntitySet="User" />
             <End Role="Client" EntitySet="Client" />
           </AssociationSet>
-          <AssociationSet Name="FK_Employee_Gender" Association="Self.FK_Employee_Gender">
-            <End Role="Gender" EntitySet="Gender" />
-            <End Role="Employee" EntitySet="Employee" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Employee_Position" Association="Self.FK_Employee_Position">
-            <End Role="Position" EntitySet="Position" />
-            <End Role="Employee" EntitySet="Employee" />
-          </AssociationSet>
           <AssociationSet Name="FK_Employee_User" Association="Self.FK_Employee_User">
             <End Role="User" EntitySet="User" />
             <End Role="Employee" EntitySet="Employee" />
@@ -423,10 +279,6 @@
           <AssociationSet Name="FK_House_Material_Material" Association="Self.FK_House_Material_Material">
             <End Role="Material" EntitySet="Material" />
             <End Role="House_Material" EntitySet="House_Material" />
-          </AssociationSet>
-          <AssociationSet Name="FK_HousePhoto_House" Association="Self.FK_HousePhoto_House">
-            <End Role="House" EntitySet="House" />
-            <End Role="HousePhoto" EntitySet="HousePhoto" />
           </AssociationSet>
           <AssociationSet Name="FK_Order_Client" Association="Self.FK_Order_Client">
             <End Role="Client" EntitySet="Client" />
@@ -440,18 +292,6 @@
             <End Role="House" EntitySet="House" />
             <End Role="Order" EntitySet="Order" />
           </AssociationSet>
-          <AssociationSet Name="FK_Order_OrderStage" Association="Self.FK_Order_OrderStage">
-            <End Role="OrderStage" EntitySet="OrderStage" />
-            <End Role="Order" EntitySet="Order" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Storage_Material_Material" Association="Self.FK_Storage_Material_Material">
-            <End Role="Material" EntitySet="Material" />
-            <End Role="Storage_Material" EntitySet="Storage_Material" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Storage_Material_Storage" Association="Self.FK_Storage_Material_Storage">
-            <End Role="Storage" EntitySet="Storage" />
-            <End Role="Storage_Material" EntitySet="Storage_Material" />
-          </AssociationSet>
           <AssociationSet Name="FK_Supply_Material_Material" Association="Self.FK_Supply_Material_Material">
             <End Role="Material" EntitySet="Material" />
             <End Role="Supply_Material" EntitySet="Supply_Material" />
@@ -464,70 +304,109 @@
             <End Role="Supplier" EntitySet="Supplier" />
             <End Role="Supply" EntitySet="Supply" />
           </AssociationSet>
-          <AssociationSet Name="FK_User_Role" Association="Self.FK_User_Role">
-            <End Role="Role" EntitySet="Role" />
-            <End Role="User" EntitySet="User" />
-          </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="BuildingCompanyModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="BuildingCompanyEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Client" EntityType="BuildingCompanyModel.Client" />
+          <EntitySet Name="Employee" EntityType="BuildingCompanyModel.Employee" />
+          <EntitySet Name="House" EntityType="BuildingCompanyModel.House" />
+          <EntitySet Name="House_Material" EntityType="BuildingCompanyModel.House_Material" />
+          <EntitySet Name="Material" EntityType="BuildingCompanyModel.Material" />
+          <EntitySet Name="Order" EntityType="BuildingCompanyModel.Order" />
+          <EntitySet Name="Supplier" EntityType="BuildingCompanyModel.Supplier" />
+          <EntitySet Name="Supply" EntityType="BuildingCompanyModel.Supply" />
+          <EntitySet Name="Supply_Material" EntityType="BuildingCompanyModel.Supply_Material" />
+          <EntitySet Name="sysdiagrams" EntityType="BuildingCompanyModel.sysdiagrams" />
+          <EntitySet Name="SystemImage" EntityType="BuildingCompanyModel.SystemImage" />
+          <EntitySet Name="User" EntityType="BuildingCompanyModel.User" />
+          <AssociationSet Name="FK_Client_User" Association="BuildingCompanyModel.FK_Client_User">
+            <End Role="User" EntitySet="User" />
+            <End Role="Client" EntitySet="Client" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Order_Client" Association="BuildingCompanyModel.FK_Order_Client">
+            <End Role="Client" EntitySet="Client" />
+            <End Role="Order" EntitySet="Order" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Employee_User" Association="BuildingCompanyModel.FK_Employee_User">
+            <End Role="User" EntitySet="User" />
+            <End Role="Employee" EntitySet="Employee" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Order_Employee" Association="BuildingCompanyModel.FK_Order_Employee">
+            <End Role="Employee" EntitySet="Employee" />
+            <End Role="Order" EntitySet="Order" />
+          </AssociationSet>
+          <AssociationSet Name="FK_House_Material_House" Association="BuildingCompanyModel.FK_House_Material_House">
+            <End Role="House" EntitySet="House" />
+            <End Role="House_Material" EntitySet="House_Material" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Order_House" Association="BuildingCompanyModel.FK_Order_House">
+            <End Role="House" EntitySet="House" />
+            <End Role="Order" EntitySet="Order" />
+          </AssociationSet>
+          <AssociationSet Name="FK_House_Material_Material" Association="BuildingCompanyModel.FK_House_Material_Material">
+            <End Role="Material" EntitySet="Material" />
+            <End Role="House_Material" EntitySet="House_Material" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Supply_Material_Material" Association="BuildingCompanyModel.FK_Supply_Material_Material">
+            <End Role="Material" EntitySet="Material" />
+            <End Role="Supply_Material" EntitySet="Supply_Material" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Supply_Supplier" Association="BuildingCompanyModel.FK_Supply_Supplier">
+            <End Role="Supplier" EntitySet="Supplier" />
+            <End Role="Supply" EntitySet="Supply" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Supply_Material_Supply" Association="BuildingCompanyModel.FK_Supply_Material_Supply">
+            <End Role="Supply" EntitySet="Supply" />
+            <End Role="Supply_Material" EntitySet="Supply_Material" />
+          </AssociationSet>
+        </EntityContainer>
         <EntityType Name="Client">
           <Key>
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Surname" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Surname" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Name="Patronymic" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="Phone" Type="String" MaxLength="13" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="User_id" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <NavigationProperty Name="User" Relationship="Self.FK_Client_User" FromRole="Client" ToRole="User" />
-          <NavigationProperty Name="Order" Relationship="Self.FK_Order_Client" FromRole="Client" ToRole="Order" />
+          <Property Name="Phone" Type="String" Nullable="false" MaxLength="13" FixedLength="false" Unicode="false" />
+          <Property Name="User_id" Type="Int32" Nullable="false" />
+          <Property Name="IsDeleted" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="User" Relationship="BuildingCompanyModel.FK_Client_User" FromRole="Client" ToRole="User" />
+          <NavigationProperty Name="Order" Relationship="BuildingCompanyModel.FK_Order_Client" FromRole="Client" ToRole="Order" />
         </EntityType>
         <EntityType Name="Employee">
           <Key>
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Surname" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="Patronymic" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Surname" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Patronymic" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="BirthDay" Type="DateTime" Nullable="false" Precision="0" />
           <Property Name="Photo" Type="Binary" MaxLength="Max" FixedLength="false" />
-          <Property Name="User_login" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="User_id" Type="Int32" />
           <Property Name="Gender_id" Type="Int32" Nullable="false" />
-          <Property Name="Position_id" Type="Int32" />
+          <Property Name="Position_id" Type="Int32" Nullable="false" />
           <Property Name="IsDeleted" Type="Boolean" Nullable="false" />
-          <NavigationProperty Name="Gender" Relationship="Self.FK_Employee_Gender" FromRole="Employee" ToRole="Gender" />
-          <NavigationProperty Name="Position" Relationship="Self.FK_Employee_Position" FromRole="Employee" ToRole="Position" />
-          <NavigationProperty Name="User" Relationship="Self.FK_Employee_User" FromRole="Employee" ToRole="User" />
-          <NavigationProperty Name="Order" Relationship="Self.FK_Order_Employee" FromRole="Employee" ToRole="Order" />
-        </EntityType>
-        <EntityType Name="Gender">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <NavigationProperty Name="Employee" Relationship="Self.FK_Employee_Gender" FromRole="Gender" ToRole="Employee" />
+          <NavigationProperty Name="User" Relationship="BuildingCompanyModel.FK_Employee_User" FromRole="Employee" ToRole="User" />
+          <NavigationProperty Name="Order" Relationship="BuildingCompanyModel.FK_Order_Employee" FromRole="Employee" ToRole="Order" />
         </EntityType>
         <EntityType Name="House">
           <Key>
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="Area" Type="Decimal" Precision="6" Scale="2" Nullable="false" />
-          <Property Name="Floors" Type="Decimal" Precision="2" Scale="0" Nullable="false" />
-          <Property Name="Cost" Type="Decimal" Precision="12" Scale="2" Nullable="false" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Area" Type="Decimal" Nullable="false" Precision="6" Scale="2" />
+          <Property Name="Floors" Type="Decimal" Nullable="false" Precision="2" Scale="0" />
+          <Property Name="Cost" Type="Decimal" Nullable="false" Precision="12" Scale="2" />
           <Property Name="Photo" Type="Binary" MaxLength="Max" FixedLength="false" />
           <Property Name="IsDeleted" Type="Boolean" Nullable="false" />
-          <NavigationProperty Name="House_Material" Relationship="Self.FK_House_Material_House" FromRole="House" ToRole="House_Material" />
-          <NavigationProperty Name="HousePhoto" Relationship="Self.FK_HousePhoto_House" FromRole="House" ToRole="HousePhoto" />
-          <NavigationProperty Name="Order" Relationship="Self.FK_Order_House" FromRole="House" ToRole="Order" />
+          <NavigationProperty Name="House_Material" Relationship="BuildingCompanyModel.FK_House_Material_House" FromRole="House" ToRole="House_Material" />
+          <NavigationProperty Name="Order" Relationship="BuildingCompanyModel.FK_Order_House" FromRole="House" ToRole="Order" />
         </EntityType>
         <EntityType Name="House_Material">
           <Key>
@@ -536,30 +415,22 @@
           </Key>
           <Property Name="House_id" Type="Int32" Nullable="false" />
           <Property Name="Material_id" Type="Int32" Nullable="false" />
-          <Property Name="Count" Type="Decimal" Precision="12" Scale="0" Nullable="false" />
-          <NavigationProperty Name="House" Relationship="Self.FK_House_Material_House" FromRole="House_Material" ToRole="House" />
-          <NavigationProperty Name="Material" Relationship="Self.FK_House_Material_Material" FromRole="House_Material" ToRole="Material" />
-        </EntityType>
-        <EntityType Name="HousePhoto">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="House_id" Type="Int32" Nullable="false" />
-          <Property Name="Photo" Type="Binary" MaxLength="Max" FixedLength="false" Nullable="false" />
-          <NavigationProperty Name="House" Relationship="Self.FK_HousePhoto_House" FromRole="HousePhoto" ToRole="House" />
+          <Property Name="Count" Type="Decimal" Nullable="false" Precision="12" Scale="0" />
+          <Property Name="IsDeleted" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="House" Relationship="BuildingCompanyModel.FK_House_Material_House" FromRole="House_Material" ToRole="House" />
+          <NavigationProperty Name="Material" Relationship="BuildingCompanyModel.FK_House_Material_Material" FromRole="House_Material" ToRole="Material" />
         </EntityType>
         <EntityType Name="Material">
           <Key>
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="Cost" Type="Decimal" Precision="8" Scale="2" Nullable="false" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Cost" Type="Decimal" Nullable="false" Precision="8" Scale="2" />
+          <Property Name="Count" Type="Decimal" Nullable="false" Precision="12" Scale="0" />
           <Property Name="IsDeleted" Type="Boolean" Nullable="false" />
-          <NavigationProperty Name="House_Material" Relationship="Self.FK_House_Material_Material" FromRole="Material" ToRole="House_Material" />
-          <NavigationProperty Name="Storage_Material" Relationship="Self.FK_Storage_Material_Material" FromRole="Material" ToRole="Storage_Material" />
-          <NavigationProperty Name="Supply_Material" Relationship="Self.FK_Supply_Material_Material" FromRole="Material" ToRole="Supply_Material" />
+          <NavigationProperty Name="House_Material" Relationship="BuildingCompanyModel.FK_House_Material_Material" FromRole="Material" ToRole="House_Material" />
+          <NavigationProperty Name="Supply_Material" Relationship="BuildingCompanyModel.FK_Supply_Material_Material" FromRole="Material" ToRole="Supply_Material" />
         </EntityType>
         <EntityType Name="Order">
           <Key>
@@ -570,74 +441,31 @@
           <Property Name="House_id" Type="Int32" Nullable="false" />
           <Property Name="Executor_id" Type="Int32" />
           <Property Name="OrderStage_id" Type="Int32" Nullable="false" />
-          <Property Name="isDeleted" Type="Boolean" Nullable="false" />
-          <NavigationProperty Name="Client" Relationship="Self.FK_Order_Client" FromRole="Order" ToRole="Client" />
-          <NavigationProperty Name="Employee" Relationship="Self.FK_Order_Employee" FromRole="Order" ToRole="Employee" />
-          <NavigationProperty Name="House" Relationship="Self.FK_Order_House" FromRole="Order" ToRole="House" />
-          <NavigationProperty Name="OrderStage" Relationship="Self.FK_Order_OrderStage" FromRole="Order" ToRole="OrderStage" />
-        </EntityType>
-        <EntityType Name="OrderStage">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <NavigationProperty Name="Order" Relationship="Self.FK_Order_OrderStage" FromRole="OrderStage" ToRole="Order" />
-        </EntityType>
-        <EntityType Name="Position">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <NavigationProperty Name="Employee" Relationship="Self.FK_Employee_Position" FromRole="Position" ToRole="Employee" />
-        </EntityType>
-        <EntityType Name="Role">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <NavigationProperty Name="User" Relationship="Self.FK_User_Role" FromRole="Role" ToRole="User" />
-        </EntityType>
-        <EntityType Name="Storage">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="IsDeleted" Type="Boolean" Nullable="false" />
-          <NavigationProperty Name="Storage_Material" Relationship="Self.FK_Storage_Material_Storage" FromRole="Storage" ToRole="Storage_Material" />
-        </EntityType>
-        <EntityType Name="Storage_Material">
-          <Key>
-            <PropertyRef Name="Material_id" />
-            <PropertyRef Name="Storage_id" />
-          </Key>
-          <Property Name="Material_id" Type="Int32" Nullable="false" />
-          <Property Name="Storage_id" Type="Int32" Nullable="false" />
-          <Property Name="Count" Type="Decimal" Precision="12" Scale="0" Nullable="false" />
-          <NavigationProperty Name="Material" Relationship="Self.FK_Storage_Material_Material" FromRole="Storage_Material" ToRole="Material" />
-          <NavigationProperty Name="Storage" Relationship="Self.FK_Storage_Material_Storage" FromRole="Storage_Material" ToRole="Storage" />
+          <NavigationProperty Name="Client" Relationship="BuildingCompanyModel.FK_Order_Client" FromRole="Order" ToRole="Client" />
+          <NavigationProperty Name="Employee" Relationship="BuildingCompanyModel.FK_Order_Employee" FromRole="Order" ToRole="Employee" />
+          <NavigationProperty Name="House" Relationship="BuildingCompanyModel.FK_Order_House" FromRole="Order" ToRole="House" />
         </EntityType>
         <EntityType Name="Supplier">
           <Key>
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="isDeleted" Type="Boolean" Nullable="false" />
-          <NavigationProperty Name="Supply" Relationship="Self.FK_Supply_Supplier" FromRole="Supplier" ToRole="Supply" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="IsDeleted" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Supply" Relationship="BuildingCompanyModel.FK_Supply_Supplier" FromRole="Supplier" ToRole="Supply" />
         </EntityType>
         <EntityType Name="Supply">
           <Key>
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Date" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="Date" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="Supplier_id" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Supplier" Relationship="Self.FK_Supply_Supplier" FromRole="Supply" ToRole="Supplier" />
-          <NavigationProperty Name="Supply_Material" Relationship="Self.FK_Supply_Material_Supply" FromRole="Supply" ToRole="Supply_Material" />
+          <Property Name="IsConduct" Type="Boolean" Nullable="false" />
+          <Property Name="IsDeleted" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Supplier" Relationship="BuildingCompanyModel.FK_Supply_Supplier" FromRole="Supply" ToRole="Supplier" />
+          <NavigationProperty Name="Supply_Material" Relationship="BuildingCompanyModel.FK_Supply_Material_Supply" FromRole="Supply" ToRole="Supply_Material" />
         </EntityType>
         <EntityType Name="Supply_Material">
           <Key>
@@ -646,15 +474,17 @@
           </Key>
           <Property Name="Supply_id" Type="Int32" Nullable="false" />
           <Property Name="Material_id" Type="Int32" Nullable="false" />
-          <Property Name="Count" Type="Decimal" Precision="12" Scale="0" Nullable="false" />
-          <NavigationProperty Name="Material" Relationship="Self.FK_Supply_Material_Material" FromRole="Supply_Material" ToRole="Material" />
-          <NavigationProperty Name="Supply" Relationship="Self.FK_Supply_Material_Supply" FromRole="Supply_Material" ToRole="Supply" />
+          <Property Name="Cost" Type="Decimal" Nullable="false" Precision="8" Scale="2" />
+          <Property Name="Count" Type="Decimal" Nullable="false" Precision="12" Scale="0" />
+          <Property Name="IsDeleted" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Material" Relationship="BuildingCompanyModel.FK_Supply_Material_Material" FromRole="Supply_Material" ToRole="Material" />
+          <NavigationProperty Name="Supply" Relationship="BuildingCompanyModel.FK_Supply_Material_Supply" FromRole="Supply_Material" ToRole="Supply" />
         </EntityType>
         <EntityType Name="sysdiagrams">
           <Key>
             <PropertyRef Name="diagram_id" />
           </Key>
-          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="name" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
           <Property Name="principal_id" Type="Int32" Nullable="false" />
           <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="version" Type="Int32" />
@@ -665,26 +495,26 @@
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="Data" Type="Binary" MaxLength="Max" FixedLength="false" Nullable="false" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Data" Type="Binary" Nullable="false" MaxLength="Max" FixedLength="false" />
         </EntityType>
         <EntityType Name="User">
           <Key>
-            <PropertyRef Name="Login" />
+            <PropertyRef Name="ID" />
           </Key>
-          <Property Name="Login" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Login" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Password" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="Role_ID" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Client" Relationship="Self.FK_Client_User" FromRole="User" ToRole="Client" />
-          <NavigationProperty Name="Employee" Relationship="Self.FK_Employee_User" FromRole="User" ToRole="Employee" />
-          <NavigationProperty Name="Role" Relationship="Self.FK_User_Role" FromRole="User" ToRole="Role" />
+          <NavigationProperty Name="Client" Relationship="BuildingCompanyModel.FK_Client_User" FromRole="User" ToRole="Client" />
+          <NavigationProperty Name="Employee" Relationship="BuildingCompanyModel.FK_Employee_User" FromRole="User" ToRole="Employee" />
         </EntityType>
         <Association Name="FK_Client_User">
-          <End Role="User" Type="Self.User" Multiplicity="1" />
-          <End Role="Client" Type="Self.Client" Multiplicity="*" />
+          <End Type="BuildingCompanyModel.User" Role="User" Multiplicity="1" />
+          <End Type="BuildingCompanyModel.Client" Role="Client" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="User">
-              <PropertyRef Name="Login" />
+              <PropertyRef Name="ID" />
             </Principal>
             <Dependent Role="Client">
               <PropertyRef Name="User_id" />
@@ -692,8 +522,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Order_Client">
-          <End Role="Client" Type="Self.Client" Multiplicity="1" />
-          <End Role="Order" Type="Self.Order" Multiplicity="*" />
+          <End Type="BuildingCompanyModel.Client" Role="Client" Multiplicity="1" />
+          <End Type="BuildingCompanyModel.Order" Role="Order" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Client">
               <PropertyRef Name="ID" />
@@ -703,45 +533,21 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Employee_Gender">
-          <End Role="Gender" Type="Self.Gender" Multiplicity="1" />
-          <End Role="Employee" Type="Self.Employee" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Gender">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="Employee">
-              <PropertyRef Name="Gender_id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Employee_Position">
-          <End Role="Position" Type="Self.Position" Multiplicity="0..1" />
-          <End Role="Employee" Type="Self.Employee" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Position">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="Employee">
-              <PropertyRef Name="Position_id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_Employee_User">
-          <End Role="User" Type="Self.User" Multiplicity="1" />
-          <End Role="Employee" Type="Self.Employee" Multiplicity="*" />
+          <End Type="BuildingCompanyModel.User" Role="User" Multiplicity="0..1" />
+          <End Type="BuildingCompanyModel.Employee" Role="Employee" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="User">
-              <PropertyRef Name="Login" />
+              <PropertyRef Name="ID" />
             </Principal>
             <Dependent Role="Employee">
-              <PropertyRef Name="User_login" />
+              <PropertyRef Name="User_id" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Order_Employee">
-          <End Role="Employee" Type="Self.Employee" Multiplicity="0..1" />
-          <End Role="Order" Type="Self.Order" Multiplicity="*" />
+          <End Type="BuildingCompanyModel.Employee" Role="Employee" Multiplicity="0..1" />
+          <End Type="BuildingCompanyModel.Order" Role="Order" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Employee">
               <PropertyRef Name="ID" />
@@ -752,8 +558,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_House_Material_House">
-          <End Role="House" Type="Self.House" Multiplicity="1" />
-          <End Role="House_Material" Type="Self.House_Material" Multiplicity="*" />
+          <End Type="BuildingCompanyModel.House" Role="House" Multiplicity="1" />
+          <End Type="BuildingCompanyModel.House_Material" Role="House_Material" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="House">
               <PropertyRef Name="ID" />
@@ -763,21 +569,9 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_HousePhoto_House">
-          <End Role="House" Type="Self.House" Multiplicity="1" />
-          <End Role="HousePhoto" Type="Self.HousePhoto" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="House">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="HousePhoto">
-              <PropertyRef Name="House_id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_Order_House">
-          <End Role="House" Type="Self.House" Multiplicity="1" />
-          <End Role="Order" Type="Self.Order" Multiplicity="*" />
+          <End Type="BuildingCompanyModel.House" Role="House" Multiplicity="1" />
+          <End Type="BuildingCompanyModel.Order" Role="Order" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="House">
               <PropertyRef Name="ID" />
@@ -788,8 +582,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_House_Material_Material">
-          <End Role="Material" Type="Self.Material" Multiplicity="1" />
-          <End Role="House_Material" Type="Self.House_Material" Multiplicity="*" />
+          <End Type="BuildingCompanyModel.Material" Role="Material" Multiplicity="1" />
+          <End Type="BuildingCompanyModel.House_Material" Role="House_Material" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Material">
               <PropertyRef Name="ID" />
@@ -799,21 +593,9 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Storage_Material_Material">
-          <End Role="Material" Type="Self.Material" Multiplicity="1" />
-          <End Role="Storage_Material" Type="Self.Storage_Material" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Material">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="Storage_Material">
-              <PropertyRef Name="Material_id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_Supply_Material_Material">
-          <End Role="Material" Type="Self.Material" Multiplicity="1" />
-          <End Role="Supply_Material" Type="Self.Supply_Material" Multiplicity="*" />
+          <End Type="BuildingCompanyModel.Material" Role="Material" Multiplicity="1" />
+          <End Type="BuildingCompanyModel.Supply_Material" Role="Supply_Material" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Material">
               <PropertyRef Name="ID" />
@@ -823,45 +605,9 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Order_OrderStage">
-          <End Role="OrderStage" Type="Self.OrderStage" Multiplicity="1" />
-          <End Role="Order" Type="Self.Order" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="OrderStage">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="Order">
-              <PropertyRef Name="OrderStage_id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_User_Role">
-          <End Role="Role" Type="Self.Role" Multiplicity="1" />
-          <End Role="User" Type="Self.User" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Role">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="User">
-              <PropertyRef Name="Role_ID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Storage_Material_Storage">
-          <End Role="Storage" Type="Self.Storage" Multiplicity="1" />
-          <End Role="Storage_Material" Type="Self.Storage_Material" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Storage">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="Storage_Material">
-              <PropertyRef Name="Storage_id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_Supply_Supplier">
-          <End Role="Supplier" Type="Self.Supplier" Multiplicity="1" />
-          <End Role="Supply" Type="Self.Supply" Multiplicity="*" />
+          <End Type="BuildingCompanyModel.Supplier" Role="Supplier" Multiplicity="1" />
+          <End Type="BuildingCompanyModel.Supply" Role="Supply" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Supplier">
               <PropertyRef Name="ID" />
@@ -872,8 +618,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Supply_Material_Supply">
-          <End Role="Supply" Type="Self.Supply" Multiplicity="1" />
-          <End Role="Supply_Material" Type="Self.Supply_Material" Multiplicity="*" />
+          <End Type="BuildingCompanyModel.Supply" Role="Supply" Multiplicity="1" />
+          <End Type="BuildingCompanyModel.Supply_Material" Role="Supply_Material" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Supply">
               <PropertyRef Name="ID" />
@@ -883,96 +629,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="BuildingCompanyEntities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="Client" EntityType="Self.Client" />
-          <EntitySet Name="Employee" EntityType="Self.Employee" />
-          <EntitySet Name="Gender" EntityType="Self.Gender" />
-          <EntitySet Name="House" EntityType="Self.House" />
-          <EntitySet Name="House_Material" EntityType="Self.House_Material" />
-          <EntitySet Name="HousePhoto" EntityType="Self.HousePhoto" />
-          <EntitySet Name="Material" EntityType="Self.Material" />
-          <EntitySet Name="Order" EntityType="Self.Order" />
-          <EntitySet Name="OrderStage" EntityType="Self.OrderStage" />
-          <EntitySet Name="Position" EntityType="Self.Position" />
-          <EntitySet Name="Role" EntityType="Self.Role" />
-          <EntitySet Name="Storage" EntityType="Self.Storage" />
-          <EntitySet Name="Storage_Material" EntityType="Self.Storage_Material" />
-          <EntitySet Name="Supplier" EntityType="Self.Supplier" />
-          <EntitySet Name="Supply" EntityType="Self.Supply" />
-          <EntitySet Name="Supply_Material" EntityType="Self.Supply_Material" />
-          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
-          <EntitySet Name="SystemImage" EntityType="Self.SystemImage" />
-          <EntitySet Name="User" EntityType="Self.User" />
-          <AssociationSet Name="FK_Client_User" Association="Self.FK_Client_User">
-            <End Role="User" EntitySet="User" />
-            <End Role="Client" EntitySet="Client" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Order_Client" Association="Self.FK_Order_Client">
-            <End Role="Client" EntitySet="Client" />
-            <End Role="Order" EntitySet="Order" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Employee_Gender" Association="Self.FK_Employee_Gender">
-            <End Role="Gender" EntitySet="Gender" />
-            <End Role="Employee" EntitySet="Employee" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Employee_Position" Association="Self.FK_Employee_Position">
-            <End Role="Position" EntitySet="Position" />
-            <End Role="Employee" EntitySet="Employee" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Employee_User" Association="Self.FK_Employee_User">
-            <End Role="User" EntitySet="User" />
-            <End Role="Employee" EntitySet="Employee" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Order_Employee" Association="Self.FK_Order_Employee">
-            <End Role="Employee" EntitySet="Employee" />
-            <End Role="Order" EntitySet="Order" />
-          </AssociationSet>
-          <AssociationSet Name="FK_House_Material_House" Association="Self.FK_House_Material_House">
-            <End Role="House" EntitySet="House" />
-            <End Role="House_Material" EntitySet="House_Material" />
-          </AssociationSet>
-          <AssociationSet Name="FK_HousePhoto_House" Association="Self.FK_HousePhoto_House">
-            <End Role="House" EntitySet="House" />
-            <End Role="HousePhoto" EntitySet="HousePhoto" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Order_House" Association="Self.FK_Order_House">
-            <End Role="House" EntitySet="House" />
-            <End Role="Order" EntitySet="Order" />
-          </AssociationSet>
-          <AssociationSet Name="FK_House_Material_Material" Association="Self.FK_House_Material_Material">
-            <End Role="Material" EntitySet="Material" />
-            <End Role="House_Material" EntitySet="House_Material" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Storage_Material_Material" Association="Self.FK_Storage_Material_Material">
-            <End Role="Material" EntitySet="Material" />
-            <End Role="Storage_Material" EntitySet="Storage_Material" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Supply_Material_Material" Association="Self.FK_Supply_Material_Material">
-            <End Role="Material" EntitySet="Material" />
-            <End Role="Supply_Material" EntitySet="Supply_Material" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Order_OrderStage" Association="Self.FK_Order_OrderStage">
-            <End Role="OrderStage" EntitySet="OrderStage" />
-            <End Role="Order" EntitySet="Order" />
-          </AssociationSet>
-          <AssociationSet Name="FK_User_Role" Association="Self.FK_User_Role">
-            <End Role="Role" EntitySet="Role" />
-            <End Role="User" EntitySet="User" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Storage_Material_Storage" Association="Self.FK_Storage_Material_Storage">
-            <End Role="Storage" EntitySet="Storage" />
-            <End Role="Storage_Material" EntitySet="Storage_Material" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Supply_Supplier" Association="Self.FK_Supply_Supplier">
-            <End Role="Supplier" EntitySet="Supplier" />
-            <End Role="Supply" EntitySet="Supply" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Supply_Material_Supply" Association="Self.FK_Supply_Material_Supply">
-            <End Role="Supply" EntitySet="Supply" />
-            <End Role="Supply_Material" EntitySet="Supply_Material" />
-          </AssociationSet>
-        </EntityContainer>
-      </Schema>
+        </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
@@ -981,187 +638,136 @@
           <EntitySetMapping Name="Client">
             <EntityTypeMapping TypeName="BuildingCompanyModel.Client">
               <MappingFragment StoreEntitySet="Client">
-                <ScalarProperty Name="ID" ColumnName="ID" />
-                <ScalarProperty Name="Surname" ColumnName="Surname" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="Patronymic" ColumnName="Patronymic" />
-                <ScalarProperty Name="Phone" ColumnName="Phone" />
+                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
                 <ScalarProperty Name="User_id" ColumnName="User_id" />
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+                <ScalarProperty Name="Patronymic" ColumnName="Patronymic" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Surname" ColumnName="Surname" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Employee">
             <EntityTypeMapping TypeName="BuildingCompanyModel.Employee">
               <MappingFragment StoreEntitySet="Employee">
-                <ScalarProperty Name="ID" ColumnName="ID" />
-                <ScalarProperty Name="Surname" ColumnName="Surname" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="Patronymic" ColumnName="Patronymic" />
-                <ScalarProperty Name="BirthDay" ColumnName="BirthDay" />
-                <ScalarProperty Name="Photo" ColumnName="Photo" />
-                <ScalarProperty Name="User_login" ColumnName="User_login" />
-                <ScalarProperty Name="Gender_id" ColumnName="Gender_id" />
-                <ScalarProperty Name="Position_id" ColumnName="Position_id" />
                 <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Gender">
-            <EntityTypeMapping TypeName="BuildingCompanyModel.Gender">
-              <MappingFragment StoreEntitySet="Gender">
-                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Position_id" ColumnName="Position_id" />
+                <ScalarProperty Name="Gender_id" ColumnName="Gender_id" />
+                <ScalarProperty Name="User_id" ColumnName="User_id" />
+                <ScalarProperty Name="Photo" ColumnName="Photo" />
+                <ScalarProperty Name="BirthDay" ColumnName="BirthDay" />
+                <ScalarProperty Name="Patronymic" ColumnName="Patronymic" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Surname" ColumnName="Surname" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="House">
             <EntityTypeMapping TypeName="BuildingCompanyModel.House">
               <MappingFragment StoreEntitySet="House">
-                <ScalarProperty Name="ID" ColumnName="ID" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="Area" ColumnName="Area" />
-                <ScalarProperty Name="Floors" ColumnName="Floors" />
-                <ScalarProperty Name="Cost" ColumnName="Cost" />
-                <ScalarProperty Name="Photo" ColumnName="Photo" />
                 <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+                <ScalarProperty Name="Photo" ColumnName="Photo" />
+                <ScalarProperty Name="Cost" ColumnName="Cost" />
+                <ScalarProperty Name="Floors" ColumnName="Floors" />
+                <ScalarProperty Name="Area" ColumnName="Area" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="House_Material">
             <EntityTypeMapping TypeName="BuildingCompanyModel.House_Material">
               <MappingFragment StoreEntitySet="House_Material">
-                <ScalarProperty Name="House_id" ColumnName="House_id" />
-                <ScalarProperty Name="Material_id" ColumnName="Material_id" />
+                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
                 <ScalarProperty Name="Count" ColumnName="Count" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="HousePhoto">
-            <EntityTypeMapping TypeName="BuildingCompanyModel.HousePhoto">
-              <MappingFragment StoreEntitySet="HousePhoto">
-                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Material_id" ColumnName="Material_id" />
                 <ScalarProperty Name="House_id" ColumnName="House_id" />
-                <ScalarProperty Name="Photo" ColumnName="Photo" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Material">
             <EntityTypeMapping TypeName="BuildingCompanyModel.Material">
               <MappingFragment StoreEntitySet="Material">
-                <ScalarProperty Name="ID" ColumnName="ID" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="Cost" ColumnName="Cost" />
                 <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+                <ScalarProperty Name="Count" ColumnName="Count" />
+                <ScalarProperty Name="Cost" ColumnName="Cost" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Order">
             <EntityTypeMapping TypeName="BuildingCompanyModel.Order">
               <MappingFragment StoreEntitySet="Order">
-                <ScalarProperty Name="ID" ColumnName="ID" />
-                <ScalarProperty Name="Client_id" ColumnName="Client_id" />
-                <ScalarProperty Name="House_id" ColumnName="House_id" />
-                <ScalarProperty Name="Executor_id" ColumnName="Executor_id" />
-                <ScalarProperty Name="OrderStage_id" ColumnName="OrderStage_id" />
-                <ScalarProperty Name="isDeleted" ColumnName="isDeleted" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="OrderStage">
-            <EntityTypeMapping TypeName="BuildingCompanyModel.OrderStage">
-              <MappingFragment StoreEntitySet="OrderStage">
-                <ScalarProperty Name="ID" ColumnName="ID" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Position">
-            <EntityTypeMapping TypeName="BuildingCompanyModel.Position">
-              <MappingFragment StoreEntitySet="Position">
-                <ScalarProperty Name="ID" ColumnName="ID" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Role">
-            <EntityTypeMapping TypeName="BuildingCompanyModel.Role">
-              <MappingFragment StoreEntitySet="Role">
-                <ScalarProperty Name="ID" ColumnName="ID" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Storage">
-            <EntityTypeMapping TypeName="BuildingCompanyModel.Storage">
-              <MappingFragment StoreEntitySet="Storage">
-                <ScalarProperty Name="ID" ColumnName="ID" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Storage_Material">
-            <EntityTypeMapping TypeName="BuildingCompanyModel.Storage_Material">
-              <MappingFragment StoreEntitySet="Storage_Material">
-                <ScalarProperty Name="Material_id" ColumnName="Material_id" />
-                <ScalarProperty Name="Storage_id" ColumnName="Storage_id" />
-                <ScalarProperty Name="Count" ColumnName="Count" />
+                <ScalarProperty Name="OrderStage_id" ColumnName="OrderStage_id" />
+                <ScalarProperty Name="Executor_id" ColumnName="Executor_id" />
+                <ScalarProperty Name="House_id" ColumnName="House_id" />
+                <ScalarProperty Name="Client_id" ColumnName="Client_id" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Supplier">
             <EntityTypeMapping TypeName="BuildingCompanyModel.Supplier">
               <MappingFragment StoreEntitySet="Supplier">
-                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="isDeleted" ColumnName="isDeleted" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Supply">
             <EntityTypeMapping TypeName="BuildingCompanyModel.Supply">
               <MappingFragment StoreEntitySet="Supply">
-                <ScalarProperty Name="ID" ColumnName="ID" />
-                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+                <ScalarProperty Name="IsConduct" ColumnName="IsConduct" />
                 <ScalarProperty Name="Supplier_id" ColumnName="Supplier_id" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Supply_Material">
             <EntityTypeMapping TypeName="BuildingCompanyModel.Supply_Material">
               <MappingFragment StoreEntitySet="Supply_Material">
-                <ScalarProperty Name="Supply_id" ColumnName="Supply_id" />
-                <ScalarProperty Name="Material_id" ColumnName="Material_id" />
+                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
                 <ScalarProperty Name="Count" ColumnName="Count" />
+                <ScalarProperty Name="Cost" ColumnName="Cost" />
+                <ScalarProperty Name="Material_id" ColumnName="Material_id" />
+                <ScalarProperty Name="Supply_id" ColumnName="Supply_id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="sysdiagrams">
             <EntityTypeMapping TypeName="BuildingCompanyModel.sysdiagrams">
               <MappingFragment StoreEntitySet="sysdiagrams">
-                <ScalarProperty Name="name" ColumnName="name" />
-                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
-                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
-                <ScalarProperty Name="version" ColumnName="version" />
                 <ScalarProperty Name="definition" ColumnName="definition" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="name" ColumnName="name" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="SystemImage">
             <EntityTypeMapping TypeName="BuildingCompanyModel.SystemImage">
               <MappingFragment StoreEntitySet="SystemImage">
-                <ScalarProperty Name="ID" ColumnName="ID" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="Data" ColumnName="Data" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="User">
             <EntityTypeMapping TypeName="BuildingCompanyModel.User">
               <MappingFragment StoreEntitySet="User">
-                <ScalarProperty Name="Login" ColumnName="Login" />
-                <ScalarProperty Name="Password" ColumnName="Password" />
                 <ScalarProperty Name="Role_ID" ColumnName="Role_ID" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="Login" ColumnName="Login" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

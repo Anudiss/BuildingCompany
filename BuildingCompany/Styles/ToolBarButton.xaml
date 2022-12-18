@@ -3,7 +3,8 @@
 
     <ControlTemplate x:Key="ToolBarButton" TargetType="{x:Type Button}">
         <Border Background="{TemplateBinding Background}"
-                CornerRadius="15">
+                CornerRadius="15"
+                Opacity="{TemplateBinding Opacity}">
             <ContentPresenter VerticalAlignment="Center"
                               HorizontalAlignment="Center"/>
 
@@ -14,7 +15,7 @@
 
         <ControlTemplate.Triggers>
             <Trigger Property="IsMouseOver" Value="True">
-                <Setter Property="Background" Value="Gray"/>
+                <Setter Property="Opacity" Value=".8"/>
             </Trigger>
         </ControlTemplate.Triggers>
     </ControlTemplate>

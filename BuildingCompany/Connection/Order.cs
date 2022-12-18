@@ -19,11 +19,10 @@ namespace BuildingCompany.Connection
         public int House_id { get; set; }
         public Nullable<int> Executor_id { get; set; }
         public int OrderStage_id { get; set; }
-        public bool isDeleted { get; set; }
+        public bool IsDeleted { get; set; }
     
         public virtual Client Client { get; set; }
         public virtual Employee Employee { get; set; }
         public virtual House House { get; set; }
-        public virtual OrderStage OrderStage { get; set; }
     }
 }

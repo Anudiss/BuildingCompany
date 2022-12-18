@@ -1,0 +1,19 @@
+﻿<UserControl x:Class="BuildingCompany.Views.MaterialViews.EditMaterialView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:vm="clr-namespace:BuildingCompany.ViewModels.MaterialViewModels"
+             xmlns:components="clr-namespace:BuildingCompany.Components"
+             mc:Ignorable="d"
+             d:DataContext="{d:DesignInstance vm:EditMaterialVM}">
+
+    <StackPanel Orientation="Vertical"
+                Width="300"
+                Margin="10 5">
+        <components:TextInput Label="Название"
+                              Text="{Binding Name, UpdateSourceTrigger=LostFocus, ValidatesOnExceptions=True}"/>
+        <components:TextInput Label="Цена"
+                              Text="{Binding Cost, StringFormat='{}{0:C2}', ConverterCulture='ru-RU', UpdateSourceTrigger=PropertyChanged, ValidatesOnExceptions=True}"/>
+    </StackPanel>
+</UserControl>

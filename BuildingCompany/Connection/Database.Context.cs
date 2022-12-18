@@ -27,17 +27,10 @@ namespace BuildingCompany.Connection
     
         public virtual DbSet<Client> Client { get; set; }
         public virtual DbSet<Employee> Employee { get; set; }
-        public virtual DbSet<Gender> Gender { get; set; }
         public virtual DbSet<House> House { get; set; }
         public virtual DbSet<House_Material> House_Material { get; set; }
-        public virtual DbSet<HousePhoto> HousePhoto { get; set; }
         public virtual DbSet<Material> Material { get; set; }
         public virtual DbSet<Order> Order { get; set; }
-        public virtual DbSet<OrderStage> OrderStage { get; set; }
-        public virtual DbSet<Position> Position { get; set; }
-        public virtual DbSet<Role> Role { get; set; }
-        public virtual DbSet<Storage> Storage { get; set; }
-        public virtual DbSet<Storage_Material> Storage_Material { get; set; }
         public virtual DbSet<Supplier> Supplier { get; set; }
         public virtual DbSet<Supply> Supply { get; set; }
         public virtual DbSet<Supply_Material> Supply_Material { get; set; }

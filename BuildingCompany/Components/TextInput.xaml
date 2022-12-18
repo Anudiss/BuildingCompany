@@ -32,7 +32,8 @@
                     <StackPanel Orientation="Vertical"
                                 Margin="{TemplateBinding Margin}"
                                 Width="{TemplateBinding Width}">
-                        <TextBlock Text="{TemplateBinding Label}"
+                        <TextBlock x:Name="LabelTB"
+                                   Text="{TemplateBinding Label}"
                                    Foreground="{TemplateBinding LabelColor}"
                                    FontSize="{TemplateBinding LabelFontSize}"
                                    FontWeight="{TemplateBinding LabelFontWeight}"
@@ -57,6 +58,9 @@
                         <Trigger Property="Validation.HasError" Value="True">
                             <Setter Property="BorderBrush" Value="{StaticResource TextInputErrorBorderBrush}"/>
                         </Trigger>
+                        <DataTrigger Binding="{Binding ElementName=LabelTB, Path=Text}" Value="">
+                            <Setter TargetName="LabelTB" Property="Visibility" Value="Collapsed"/>
+                        </DataTrigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
             </Setter.Value>

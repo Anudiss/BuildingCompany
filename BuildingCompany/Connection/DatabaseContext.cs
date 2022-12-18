@@ -11,6 +11,7 @@ namespace BuildingCompany.Connection
             Entities = new BuildingCompanyEntities();
 
             Entities.SystemImage.Load();
+            Entities.Supplier.Load();
         }
 
         public static void CancelChanges()

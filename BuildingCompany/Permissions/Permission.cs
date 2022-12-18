@@ -5,12 +5,12 @@ namespace BuildingCompany.Permissions
 {
     public static class AllowPermissions
     {
-        public static readonly Dictionary<UserRole, Permission[]> AllowRolePermissions = new Dictionary<UserRole, Permission[]>()
+        public static readonly Dictionary<Role, Permission[]> AllowRolePermissions = new Dictionary<Role, Permission[]>()
         {
 
         };
 
-        public static readonly Dictionary<EmployeePosition, Permission[]> AllowPositionPermissions = new Dictionary<EmployeePosition, Permission[]>()
+        public static readonly Dictionary<Position, Permission[]> AllowPositionPermissions = new Dictionary<Position, Permission[]>()
         {
 
         };

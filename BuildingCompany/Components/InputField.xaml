@@ -1,0 +1,66 @@
+﻿<UserControl x:Class="BuildingCompany.Components.InputField"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" 
+             Name="InputFieldRoot">
+
+    <UserControl.Resources>
+        <Style TargetType="{x:Type UserControl}">
+            <Setter Property="FontSize" Value="16"/>
+        </Style>
+    </UserControl.Resources>
+    
+    <Border Background="Transparent"
+            BorderThickness="0 0 0 2"
+            Padding="0 0 0 1">
+        <Border.Style>
+            <Style TargetType="{x:Type Border}">
+                <Setter Property="BorderBrush" Value="{StaticResource InputFieldDefaultUnderlineColor}"/>
+                <Style.Triggers>
+                    <DataTrigger Binding="{Binding ElementName=TB, Path=IsFocused}" Value="True">
+                        <Setter Property="BorderBrush" Value="{StaticResource InputFieldFocusedUnderlineColor}"/>
+                    </DataTrigger>
+                </Style.Triggers>
+            </Style>
+        </Border.Style>
+        <Grid>
+            <TextBox Text="{Binding Text, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ElementName=InputFieldRoot}"
+                     FontSize="{Binding FontSize, ElementName=InputFieldRoot}"
+                     FontWeight="{Binding FontWeight, ElementName=InputFieldRoot}"
+                     Background="{Binding Background, ElementName=InputFieldRoot}"
+                     x:Name="TB"
+                     BorderThickness="0">
+                <TextBox.Style>
+                    <Style TargetType="{x:Type TextBox}">
+                        <Setter Property="Foreground" Value="{StaticResource InputFieldDefaultTextColor}"/>
+                        <Style.Triggers>
+                            <Trigger Property="IsFocused" Value="True">
+                                <Setter Property="Foreground" Value="{StaticResource InputFieldFocusedTextColor}"/>
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </TextBox.Style>
+            </TextBox>
+            <TextBlock Text="{Binding Placeholder, ElementName=InputFieldRoot}"
+                       Background="Transparent"
+                       Foreground="{StaticResource InputFieldPlaceholderColor}"
+                       FontSize="{Binding FontSize, ElementName=InputFieldRoot}"
+                       FontWeight="{Binding FontWeight, ElementName=InputFieldRoot}"
+                       IsHitTestVisible="False"
+                       Margin="2 0 0 0">
+                <TextBlock.Style>
+                    <Style TargetType="{x:Type TextBlock}">
+                        <Setter Property="Visibility" Value="Collapsed"/>
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding ElementName=TB, Path=Text}" Value="">
+                                <Setter Property="Visibility" Value="Visible"/>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </TextBlock.Style>
+            </TextBlock>
+        </Grid>
+    </Border>
+</UserControl>

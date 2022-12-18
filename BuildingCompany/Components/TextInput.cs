@@ -61,7 +61,7 @@ namespace BuildingCompany.Components
         public static readonly DependencyProperty LabelFontWeightProperty =
             DependencyProperty.Register("LabelFontWeight", typeof(FontWeight), typeof(TextInput));
         #endregion
-        
+
         public bool HasError => string.IsNullOrEmpty(Text) || (bool)GetValue(Validation.HasErrorProperty);
 
         static TextInput() =>

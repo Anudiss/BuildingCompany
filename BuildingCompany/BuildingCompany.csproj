@@ -53,6 +53,12 @@
     <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.13.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
+    <Reference Include="Syncfusion.Licensing, Version=20.3460.0.61, Culture=neutral, PublicKeyToken=632609b4d040f6b4, processorArchitecture=MSIL">
+      <HintPath>..\packages\Syncfusion.Licensing.20.3.0.61\lib\net46\Syncfusion.Licensing.dll</HintPath>
+    </Reference>
+    <Reference Include="Syncfusion.SfChart.WPF, Version=20.3460.0.61, Culture=neutral, PublicKeyToken=3d67ed1f87d44c89, processorArchitecture=MSIL">
+      <HintPath>..\packages\Syncfusion.SfChart.WPF.20.3.0.61\lib\net46\Syncfusion.SfChart.WPF.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Data" />
@@ -80,6 +86,9 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Components\InputField.xaml.cs">
+      <DependentUpon>InputField.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Components\NavigationButton.cs" />
     <Compile Include="Components\NumericalBox.cs" />
     <Compile Include="Components\TextInput.cs" />
@@ -106,13 +115,7 @@
     <Compile Include="Connection\Employee.cs">
       <DependentUpon>Database.tt</DependentUpon>
     </Compile>
-    <Compile Include="Connection\Gender.cs">
-      <DependentUpon>Database.tt</DependentUpon>
-    </Compile>
     <Compile Include="Connection\House.cs">
-      <DependentUpon>Database.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Connection\HousePhoto.cs">
       <DependentUpon>Database.tt</DependentUpon>
     </Compile>
     <Compile Include="Connection\House_Material.cs">
@@ -122,21 +125,6 @@
       <DependentUpon>Database.tt</DependentUpon>
     </Compile>
     <Compile Include="Connection\Order.cs">
-      <DependentUpon>Database.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Connection\OrderStage.cs">
-      <DependentUpon>Database.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Connection\Position.cs">
-      <DependentUpon>Database.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Connection\Role.cs">
-      <DependentUpon>Database.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Connection\Storage.cs">
-      <DependentUpon>Database.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Connection\Storage_Material.cs">
       <DependentUpon>Database.tt</DependentUpon>
     </Compile>
     <Compile Include="Connection\Supplier.cs">
@@ -157,19 +145,58 @@
     <Compile Include="Connection\User.cs">
       <DependentUpon>Database.tt</DependentUpon>
     </Compile>
+    <Compile Include="Converters\BooleanToVisibilityConverter.cs" />
+    <Compile Include="Converters\SystemImageConverter.cs" />
+    <Compile Include="Extensions\Client.Extension.cs" />
     <Compile Include="Extensions\Employee.Extension.cs" />
+    <Compile Include="Extensions\House.Extension.cs" />
+    <Compile Include="Extensions\House_Material.cs" />
     <Compile Include="Extensions\Order.Extension.cs" />
+    <Compile Include="Extensions\Supplier.Extension.cs" />
+    <Compile Include="Extensions\Supply.Extension.cs" />
+    <Compile Include="Extensions\Supply_Material.Extension.cs" />
     <Compile Include="Extensions\SystemImage.Extension.cs" />
     <Compile Include="Extensions\User.Extension.cs" />
+    <Compile Include="Model\Collections\HouseCollection.cs" />
+    <Compile Include="Model\Entities\HouseModel.cs" />
+    <Compile Include="Model\ModelBases\ModelBase.cs" />
     <Compile Include="Permissions\Permission.cs" />
     <Compile Include="UserData\UserData.cs" />
+    <Compile Include="Utilities\Filter.cs" />
     <Compile Include="Utilities\RelayCommand.cs" />
+    <Compile Include="Utilities\Sorting.cs" />
+    <Compile Include="ViewModels\ClientViewModels\ClientPageVM.cs" />
+    <Compile Include="ViewModels\ClientViewModels\ClientVM.cs" />
+    <Compile Include="ViewModels\ClientViewModels\EditClientVM.cs" />
+    <Compile Include="ViewModels\DocumentViewModelBase.cs" />
+    <Compile Include="ViewModels\EmployeeViewMmodels\EditEmployeeVM.cs" />
+    <Compile Include="ViewModels\EmployeeViewMmodels\EmployeePageVM.cs" />
+    <Compile Include="ViewModels\EmployeeViewMmodels\EmployeeVM.cs" />
     <Compile Include="ViewModels\HouseViewModels\EditHouseVM.cs" />
     <Compile Include="ViewModels\HouseViewModels\HousePageVM.cs" />
     <Compile Include="ViewModels\HouseViewModels\HouseVM.cs" />
-    <Compile Include="ViewModels\MaterialViewModels\MaterialGridRowVM.cs" />
+    <Compile Include="ViewModels\HouseViewModels\MaterialGridRowVM.cs" />
+    <Compile Include="ViewModels\MaterialViewModels\EditMaterialVM.cs" />
+    <Compile Include="ViewModels\MaterialViewModels\MaterialPageVM.cs" />
+    <Compile Include="ViewModels\MaterialViewModels\MaterialVM.cs" />
+    <Compile Include="ViewModels\SupplierViewModels\EditSupplierVM.cs" />
+    <Compile Include="ViewModels\SupplierViewModels\SupplierPageVM.cs" />
+    <Compile Include="ViewModels\SupplierViewModels\SupplierVM.cs" />
+    <Compile Include="ViewModels\SupplyViewModels\EditSupplyVM.cs" />
+    <Compile Include="ViewModels\SupplyViewModels\SupplyMaterialVM.cs" />
+    <Compile Include="ViewModels\SupplyViewModels\SupplyPageVM.cs" />
+    <Compile Include="ViewModels\SupplyViewModels\SupplyVM.cs" />
     <Compile Include="ViewModels\ViewModelBase.cs" />
     <Compile Include="ViewModels\WindowViewModelBase.cs" />
+    <Compile Include="Views\EmployeeViews\EditEmployeeView.xaml.cs">
+      <DependentUpon>EditEmployeeView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\EmployeeViews\EmployeePageView.xaml.cs">
+      <DependentUpon>EmployeePageView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\EmployeeViews\EmployeeView.xaml.cs">
+      <DependentUpon>EmployeeView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\HouseViews\EditHouseView.xaml.cs">
       <DependentUpon>EditHouseView.xaml</DependentUpon>
     </Compile>
@@ -179,8 +206,50 @@
     <Compile Include="Views\HouseViews\HouseView.xaml.cs">
       <DependentUpon>HouseView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\MaterialViews\EditMaterialView.xaml.cs">
+      <DependentUpon>EditMaterialView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\MaterialViews\MaterialPageView.xaml.cs">
+      <DependentUpon>MaterialPageView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\MaterialViews\MaterialView.xaml.cs">
+      <DependentUpon>MaterialView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\SupplierViews\EditSupplierView.xaml.cs">
+      <DependentUpon>EditSupplierView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\SupplierViews\SupplierPageView.xaml.cs">
+      <DependentUpon>SupplierPageView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\SupplierViews\SupplierView.xaml.cs">
+      <DependentUpon>SupplierView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\SupplyViews\EditSupplyView.xaml.cs">
+      <DependentUpon>EditSupplyView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\SupplyViews\SupplyPageView.xaml.cs">
+      <DependentUpon>SupplyPageView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\SupplyViews\SupplyView.xaml.cs">
+      <DependentUpon>SupplyView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\Auth\ViewModel\AuthNavigationVM.cs" />
+    <Compile Include="Windows\Auth\ViewModel\LoginVM.cs" />
+    <Compile Include="Windows\Auth\ViewModel\RegisterVM.cs" />
+    <Compile Include="Windows\Auth\View\AuthWindow.xaml.cs">
+      <DependentUpon>AuthWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\Auth\View\LoginView.xaml.cs">
+      <DependentUpon>LoginView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\Auth\View\RegisterView.xaml.cs">
+      <DependentUpon>RegisterView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Windows\EditDialogWindow\EditDialogWindow.xaml.cs">
       <DependentUpon>EditDialogWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\EditDocumentDialog\EditDocumentDialogWindow.xaml.cs">
+      <DependentUpon>EditDocumentDialogWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Windows\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
@@ -224,12 +293,18 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Views\ClientViews\" />
+  </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
     <Page Include="Components\ErrorTemplate.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Components\InputField.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -245,7 +320,19 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Styles\BaseColors.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Styles\ButtonStyles.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Styles\ComboBox.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Styles\DataGridStyles.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -261,6 +348,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Styles\ScrollBar.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Styles\ToolBarButton.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -270,6 +361,22 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Components\NavigationButton.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Styles\WindowStyles.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\EmployeeViews\EditEmployeeView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\EmployeeViews\EmployeePageView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\EmployeeViews\EmployeeView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -285,7 +392,59 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\MaterialViews\EditMaterialView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\MaterialViews\MaterialPageView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\MaterialViews\MaterialView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\SupplierViews\EditSupplierView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\SupplierViews\SupplierPageView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\SupplierViews\SupplierView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\SupplyViews\EditSupplyView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\SupplyViews\SupplyPageView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\SupplyViews\SupplyView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\Auth\View\AuthWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\Auth\View\LoginView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\Auth\View\RegisterView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Windows\EditDialogWindow\EditDialogWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\EditDocumentDialog\EditDocumentDialogWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -18,7 +18,6 @@ namespace BuildingCompany.Connection
         public House()
         {
             this.House_Material = new HashSet<House_Material>();
-            this.HousePhoto = new HashSet<HousePhoto>();
             this.Order = new HashSet<Order>();
         }
     
@@ -32,8 +31,6 @@ namespace BuildingCompany.Connection
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<House_Material> House_Material { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<HousePhoto> HousePhoto { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Order> Order { get; set; }
     }

@@ -3,24 +3,28 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:fa="http://schemas.fontawesome.io/icons/"
         mc:Ignorable="d"
         Title="Окно выбора"
         SizeToContent="WidthAndHeight" WindowStartupLocation="CenterScreen" WindowStyle="None" ResizeMode="NoResize"
         Background="Transparent" AllowsTransparency="True"
         MouseDown="Window_MouseDown"
-        DataContext="{Binding RelativeSource={RelativeSource Self}}">
+        DataContext="{Binding RelativeSource={RelativeSource Self}}"
+        Icon="{Binding Converter={StaticResource SystemImageConverter}, ConverterParameter='logo'}">
 
     <Border CornerRadius="10"
-            Background="White">
+            BorderThickness="2"
+            BorderBrush="{StaticResource WindowBorderBrush}"
+            Background="{StaticResource WindowBackground}">
         <StackPanel Orientation="Vertical"
                     VerticalAlignment="Top">
             <!--#region ToolBar -->
-            <Border CornerRadius="10 10 0 0"
-                    MaxHeight="34"
+            <Border CornerRadius="8 8 0 0"
+                    MaxHeight="32"
                     HorizontalAlignment="Stretch"
-                    Background="{StaticResource ToolBarBackground}">
-                <Grid Margin="2">
+                    Background="{StaticResource WindowToolbarBackground}"
+                    BorderBrush="{StaticResource WindowBorderBrush}"
+                    BorderThickness="0 0 0 2">
+                <Grid Margin="2 0 0 0">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition/>
                         <ColumnDefinition Width="Auto"/>
@@ -29,19 +33,20 @@
                     <!--#region Title-->
                     <TextBlock Text="{Binding Title}"
                                VerticalAlignment="Center"
+                               Foreground="{StaticResource WindowTitleColor}"
                                Grid.Column="0"
-                               FontSize="14" FontWeight="Medium"
+                               FontSize="18" FontWeight="Medium"
                                Margin="3 0 0 0"/>
                     <!--#endregion-->
                     <!--#region Buttons-->
                     <StackPanel Orientation="Horizontal"
                                 HorizontalAlignment="Right"
                                 Grid.Column="1">
-                        <Button Height="30" Width="30" Command="{Binding CloseCommand}">
+                        <Button Height="15" Width="15" Command="{Binding CloseCommand}"
+                                Margin="7.5">
                             <Button.Content>
-                                <fa:ImageAwesome Icon="Close"
-                                                 Margin="7"
-                                                 Foreground="Red"/>
+                                <Ellipse Width="15" Height="15"
+                                         Fill="{StaticResource WindowCloseButtonColor}"/>
                             </Button.Content>
                             <Button.Style>
                                 <Style TargetType="{x:Type Button}">
@@ -63,21 +68,26 @@
                      ItemContainerStyle="{StaticResource ItemsContainerStyle}"
                      SelectionMode="Multiple"
                      MaxHeight="150"
-                     DisplayMemberPath="{Binding DisplayMemberPath}"/>
+                     DisplayMemberPath="{Binding DisplayMemberPath}"
+                     Background="Transparent"
+                     ScrollViewer.CanContentScroll="False"/>
             <!--#endregion-->
-            <Rectangle Height="1"
-                       Fill="Black"/>
             <!--#region Control buttons-->
-            <StackPanel Orientation="Horizontal"
-                        HorizontalAlignment="Center"
-                        Margin="3">
-                <Button Content="Выбрать" Command="{Binding SelectCommand}"
-                        Margin="5 0"
-                        Style="{StaticResource DefaultButton}"/>
-                <Button Content="Отмена" Command="{Binding CancelCommand}"
-                        Margin="5 0"
-                        Style="{StaticResource DefaultButton}"/>
-            </StackPanel>
+            <Border Background="{StaticResource WindowLowerToolbarBackground}"
+                    CornerRadius="0 0 8 8"
+                    BorderBrush="{StaticResource WindowBorderBrush}"
+                    BorderThickness="0 2 0 0">
+                <StackPanel Orientation="Horizontal"
+                            HorizontalAlignment="Center"
+                            Margin="3">
+                    <Button Content="Выбрать" Command="{Binding SelectCommand}"
+                            Margin="5 0"
+                            Style="{StaticResource DefaultButton}"/>
+                    <Button Content="Отмена" Command="{Binding CancelCommand}"
+                            Margin="5 0"
+                            Style="{StaticResource DefaultButton}"/>
+                </StackPanel>
+            </Border>
             <!--#endregion-->
         </StackPanel>
     </Border>

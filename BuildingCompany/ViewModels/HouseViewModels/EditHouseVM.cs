@@ -1,13 +1,12 @@
 ﻿using BuildingCompany.Connection;
 using BuildingCompany.Utilities;
-using BuildingCompany.ViewModels.MaterialViewModels;
 using BuildingCompany.Windows.SelectorDialog;
+using Microsoft.Win32;
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Data.Entity;
+using System.IO;
 using System.Linq;
-using System.Security.Cryptography.Xml;
 using System.Text.RegularExpressions;
 using System.Windows;
 
@@ -18,6 +17,7 @@ namespace BuildingCompany.ViewModels.HouseViewModels
         #region Commands
         private RelayCommand _addMaterialsCommand;
         private RelayCommand _removeMaterialsCommand;
+        private RelayCommand _changeImageCommand;
 
         public override RelayCommand CloseCommand =>
             _closeCommand ?? (_closeCommand = new RelayCommand((arg) => Close()));
@@ -28,7 +28,9 @@ namespace BuildingCompany.ViewModels.HouseViewModels
         public RelayCommand AddMaterialsCommand =>
             _addMaterialsCommand ?? (_addMaterialsCommand = new RelayCommand((arg) => AddMaterials()));
         public RelayCommand RemoveMaterialsCommand =>
-            _removeMaterialsCommand ?? (_removeMaterialsCommand = new RelayCommand((arg) => RemoveMaterials((arg as IList<object>).Cast<MaterialGridRowVM>())));
+            _removeMaterialsCommand ?? (_removeMaterialsCommand = new RelayCommand((arg) => RemoveMaterials((arg as IList<object>).Cast<MaterialGridRowVM>()), arg => arg is IList<object> list && list.Count > 0));
+        public RelayCommand ChangeImageCommand =>
+            _changeImageCommand ?? (_changeImageCommand = new RelayCommand(arg => ChangeImage()));
         #endregion
 
         private House _house;
@@ -40,7 +42,7 @@ namespace BuildingCompany.ViewModels.HouseViewModels
             {
                 if (string.IsNullOrEmpty(value))
                     throw new ArgumentException("Поле название не может быть пустым");
-                if (Regex.IsMatch(value, @"[^\w\-\,\.\d ]"))
+                if (Regex.IsMatch(value, @"[^\w\-\,\.\d ""]"))
                     throw new ArgumentException("Поле название содержит недопустимые символы");
                 if (value.Length > 100)
                     throw new ArgumentException("Поле название не может быть больше 100 символов");
@@ -104,6 +106,8 @@ namespace BuildingCompany.ViewModels.HouseViewModels
         public List<MaterialGridRowVM> Materials =>
             _house.House_Material.Select(houseMaterial => new MaterialGridRowVM(houseMaterial)).ToList();
 
+        public bool IsNew => _house.ID == 0;
+
         public EditHouseVM(House house = null)
         {
             LoadDatabaseTables();
@@ -118,9 +122,34 @@ namespace BuildingCompany.ViewModels.HouseViewModels
             DatabaseContext.Entities.Material.Load();
         }
 
+        private void ChangeImage()
+        {
+            if (OpenImage(out byte[] image))
+                Photo = image;
+        }
+
+        private bool OpenImage(out byte[] image)
+        {
+            image = null;
+            OpenFileDialog fileDialog = new OpenFileDialog()
+            {
+                Filter = "Изозражения|*.png;*.jpg;*.jpeg;*.bmp",
+                DefaultExt = "Изозражения|*.png;*.jpg;*.jpeg;*.bmp",
+                CheckFileExists = true,
+                Multiselect = false
+            };
+
+            if (fileDialog.ShowDialog() == false)
+                return false;
+
+            image = File.ReadAllBytes(fileDialog.FileName);
+            return true;
+        }
+
         private void AddMaterials()
         {
-            SelectorDialogWindow selectorDialog = new SelectorDialogWindow(DatabaseContext.Entities.Material.Local.Except(_house.House_Material.Select(houseMaterial => houseMaterial.Material)))
+            SelectorDialogWindow selectorDialog = new SelectorDialogWindow(DatabaseContext.Entities.Material.Local.Where(material => !material.IsDeleted)
+                                                                                                                  .Except(_house.House_Material.Select(houseMaterial => houseMaterial.Material)))
             {
                 DisplayMemberPath = "Name"
             };
@@ -150,7 +179,7 @@ namespace BuildingCompany.ViewModels.HouseViewModels
 
         private void Close()
         {
-            if (HasChanges())
+            if (HasChanges() || IsNew)
             {
                 MessageBoxResult result = MessageBox.Show("Сохранить изменения?", "Уведомление", MessageBoxButton.YesNoCancel, MessageBoxImage.Question);
                 switch (result)
@@ -197,8 +226,9 @@ namespace BuildingCompany.ViewModels.HouseViewModels
 
         private void Save()
         {
+            if (IsNew)
+                DatabaseContext.Entities.House.Local.Add(_house);
             DatabaseContext.Entities.SaveChanges();
-            HousePageVM.Instance.InitializeHouseView();
         }
     }
 }

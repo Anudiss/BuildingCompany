@@ -18,19 +18,17 @@ namespace BuildingCompany.Connection
         public Material()
         {
             this.House_Material = new HashSet<House_Material>();
-            this.Storage_Material = new HashSet<Storage_Material>();
             this.Supply_Material = new HashSet<Supply_Material>();
         }
     
         public int ID { get; set; }
         public string Name { get; set; }
         public decimal Cost { get; set; }
+        public decimal Count { get; set; }
         public bool IsDeleted { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<House_Material> House_Material { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Storage_Material> Storage_Material { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Supply_Material> Supply_Material { get; set; }
     }

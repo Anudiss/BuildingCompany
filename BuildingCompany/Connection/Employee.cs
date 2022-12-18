@@ -26,13 +26,11 @@ namespace BuildingCompany.Connection
         public string Patronymic { get; set; }
         public System.DateTime BirthDay { get; set; }
         public byte[] Photo { get; set; }
-        public string User_login { get; set; }
+        public Nullable<int> User_id { get; set; }
         public int Gender_id { get; set; }
-        public Nullable<int> Position_id { get; set; }
+        public int Position_id { get; set; }
         public bool IsDeleted { get; set; }
     
-        public virtual Gender Gender { get; set; }
-        public virtual Position Position { get; set; }
         public virtual User User { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Order> Order { get; set; }

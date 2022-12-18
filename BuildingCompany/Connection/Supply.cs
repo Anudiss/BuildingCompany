@@ -23,6 +23,8 @@ namespace BuildingCompany.Connection
         public int ID { get; set; }
         public System.DateTime Date { get; set; }
         public int Supplier_id { get; set; }
+        public bool IsConduct { get; set; }
+        public bool IsDeleted { get; set; }
     
         public virtual Supplier Supplier { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

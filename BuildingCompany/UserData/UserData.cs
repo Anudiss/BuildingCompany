@@ -6,9 +6,9 @@ namespace BuildingCompany.UserData
     public class UserData : ViewModelBase
     {
         #region Singleton
-        private UserData _userData;
+        private static UserData _userData;
 
-        public UserData Instance =>
+        public static UserData Instance =>
             _userData ?? (_userData = new UserData());
         #endregion
 

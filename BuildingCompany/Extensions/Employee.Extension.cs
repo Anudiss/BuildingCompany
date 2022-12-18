@@ -4,16 +4,16 @@
     {
         public string FullName => $"{Surname} {Name[0]}. {Patronymic[0]}.";
 
-        public EmployeePosition EmployeePosition
+        public Position Position
         {
-            get => (EmployeePosition)Position_id;
-            set => Position_id = (int)value;
+            get => Positions.AllPositions[Position_id];
+            set => Position_id = Positions.AllPositions.IndexOf(value);
         }
 
-        public EmployeeGender EmployeeGender
+        public Gender Gender
         {
-            get => (EmployeeGender)Gender_id;
-            set => Gender_id = (int)value;
+            get => Genders.AllGenders[Gender_id];
+            set => Gender_id = Genders.AllGenders.IndexOf(value);
         }
     }
 }

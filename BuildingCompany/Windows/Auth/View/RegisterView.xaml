@@ -1,0 +1,117 @@
+﻿<UserControl x:Class="BuildingCompany.Windows.Auth.View.RegisterView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:vm="clr-namespace:BuildingCompany.Windows.Auth.ViewModel"
+             mc:Ignorable="d" 
+             d:DataContext="{d:DesignInstance vm:RegisterVM}">
+    <Grid Background="Transparent">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <!--#region Content-->
+        <Grid Grid.Row="0"
+              Margin="10 5">
+            <Grid.Resources>
+                <Style TargetType="{x:Type TextBlock}">
+                    <Setter Property="FontSize" Value="14"/>
+                    <Setter Property="FontWeight" Value="Medium"/>
+                    <Setter Property="Foreground" Value="#353B49"/>
+                    <Setter Property="Margin" Value="4 0 0 0"/>
+                </Style>
+                <Style TargetType="{x:Type Border}">
+                    <Setter Property="CornerRadius" Value="5"/>
+                    <Setter Property="BorderBrush" Value="{StaticResource WindowBorderBrush}"/>
+                    <Setter Property="BorderThickness" Value="2"/>
+                    <Setter Property="Background" Value="#D9D9D9"/>
+                    <Setter Property="Margin" Value="0 0 0 4"/>
+                    <Setter Property="Width" Value="200"/>
+                </Style>
+                <Style TargetType="{x:Type TextBox}">
+                    <Setter Property="BorderThickness" Value="0"/>
+                    <Setter Property="Background" Value="Transparent"/>
+                    <Setter Property="Foreground" Value="#353B49"/>
+                    <Setter Property="FontSize" Value="16"/>
+                    <Setter Property="Height" Value="20"/>
+                    <Setter Property="VerticalContentAlignment" Value="Center"/>
+                    <Setter Property="Validation.ErrorTemplate" Value="{StaticResource ErrorTemplate}"/>
+                </Style>
+            </Grid.Resources>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="1*"/>
+            </Grid.ColumnDefinitions>
+
+            <StackPanel Orientation="Vertical"
+                        Grid.Column="0"
+                        Margin="5 0">
+                <TextBlock Text="Фамилия"/>
+                <Border>
+                    <TextBox Text="{Binding Surname, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnExceptions=True}"
+                         d:Text="KASdkawdkaskd"/>
+                </Border>
+                <TextBlock Text="Имя"/>
+                <Border>
+                    <TextBox Text="{Binding Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnExceptions=True}"
+                             d:Text="KASdkawdkaskd"/>
+                </Border>
+                <TextBlock Text="Отчество"/>
+                <Border>
+                    <TextBox Text="{Binding Patronymic, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnExceptions=True}"
+                             d:Text="KASdkawdkaskd"/>
+                </Border>
+                <TextBlock Text="Телефон"/>
+                <Border>
+                    <TextBox Text="{Binding Phone, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnExceptions=True}"
+                         d:Text="KASdkawdkaskd"/>
+                </Border>
+            </StackPanel>
+            
+            <StackPanel Orientation="Vertical"
+                        Grid.Column="1"
+                        Margin="5 0">
+                <TextBlock Text="Логин"/>
+                <Border>
+                    <TextBox Text="{Binding Login, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnExceptions=True}"
+                         d:Text="KASdkawdkaskd"/>
+                </Border>
+                <TextBlock Text="Пароль"/>
+                <Border>
+                    <TextBox Text="{Binding Password, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnExceptions=True}"
+                         d:Text="KASdkawdkaskd"/>
+                </Border>
+                <TextBlock Text="Повторите пароль"/>
+                <Border>
+                    <TextBox Text="{Binding RepeatPassword, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnExceptions=True}"
+                         d:Text="KASdkawdkaskd"/>
+                </Border>
+            </StackPanel>
+        </Grid>
+        <!--#endregion-->
+        <!--#region Lower toolbar-->
+        <Border CornerRadius="0 0 8 8"
+                Background="{StaticResource WindowLowerToolbarBackground}"
+                BorderBrush="{StaticResource WindowBorderBrush}"
+                BorderThickness="0 2 0 0"
+                Grid.Row="1">
+            <StackPanel Orientation="Horizontal"
+                        HorizontalAlignment="Center">
+                <StackPanel.Resources>
+                    <Style TargetType="{x:Type Button}" BasedOn="{StaticResource DefaultButton}">
+                        <Setter Property="Width" Value="120"/>
+                        <Setter Property="Padding" Value="5 2"/>
+                        <Setter Property="Margin" Value="5 2"/>
+                    </Style>
+                </StackPanel.Resources>
+                <Button Content="Войти"
+                        Command="{Binding Source={x:Static vm:AuthNavigationVM.Instance}, Path=OpenLoginCommand}"/>
+                <Button Content="Регистрация"
+                        Command="{Binding RegisterCommand}"/>
+            </StackPanel>
+        </Border>
+        <!--#endregion-->
+    </Grid>
+</UserControl>

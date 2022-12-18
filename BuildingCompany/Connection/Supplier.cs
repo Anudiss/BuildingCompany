@@ -22,7 +22,7 @@ namespace BuildingCompany.Connection
     
         public int ID { get; set; }
         public string Name { get; set; }
-        public bool isDeleted { get; set; }
+        public bool IsDeleted { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Supply> Supply { get; set; }

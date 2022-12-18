@@ -47,7 +47,7 @@ namespace BuildingCompany.Components
 
         public static object CoerceValue(DependencyObject obj, Object baseValue)
         {
-            
+
             return (int)baseValue;
         }
 

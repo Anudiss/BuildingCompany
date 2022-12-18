@@ -5,42 +5,28 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="b58b0af7a513480d87ad65d88e6d3762" Name="Diagram1">
-        <EntityTypeShape EntityType="BuildingCompanyModel.Client" Width="1.5" PointX="3.75" PointY="14" IsExpanded="true" />
-        <EntityTypeShape EntityType="BuildingCompanyModel.Employee" Width="1.5" PointX="3.75" PointY="20.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="BuildingCompanyModel.Gender" Width="1.5" PointX="1.5" PointY="20.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="BuildingCompanyModel.House" Width="1.5" PointX="0.75" PointY="7.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="BuildingCompanyModel.House_Material" Width="1.5" PointX="3" PointY="7.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="BuildingCompanyModel.HousePhoto" Width="1.5" PointX="3" PointY="10.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="BuildingCompanyModel.Material" Width="1.5" PointX="0.75" PointY="3.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="BuildingCompanyModel.Order" Width="1.5" PointX="6" PointY="7.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="BuildingCompanyModel.OrderStage" Width="1.5" PointX="3.75" PointY="18" IsExpanded="true" />
-        <EntityTypeShape EntityType="BuildingCompanyModel.Position" Width="1.5" PointX="1.5" PointY="22.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="BuildingCompanyModel.Role" Width="1.5" PointX="1.5" PointY="17.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="BuildingCompanyModel.Storage" Width="1.5" PointX="0.75" PointY="32.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="BuildingCompanyModel.Storage_Material" Width="1.5" PointX="3" PointY="3.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="BuildingCompanyModel.Supplier" Width="1.5" PointX="1.5" PointY="29" IsExpanded="true" />
-        <EntityTypeShape EntityType="BuildingCompanyModel.Supply" Width="1.5" PointX="0.75" PointY="26" IsExpanded="true" />
-        <EntityTypeShape EntityType="BuildingCompanyModel.Supply_Material" Width="1.5" PointX="3" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="BuildingCompanyModel.sysdiagrams" Width="1.5" PointX="5.75" PointY="4.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="BuildingCompanyModel.SystemImage" Width="1.5" PointX="7.75" PointY="4.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="BuildingCompanyModel.User" Width="1.5" PointX="1.5" PointY="14.25" IsExpanded="true" />
-        <AssociationConnector Association="BuildingCompanyModel.FK_Client_User" ManuallyRouted="false" />
-        <AssociationConnector Association="BuildingCompanyModel.FK_Order_Client" ManuallyRouted="false" />
-        <AssociationConnector Association="BuildingCompanyModel.FK_Employee_Gender" ManuallyRouted="false" />
-        <AssociationConnector Association="BuildingCompanyModel.FK_Employee_Position" ManuallyRouted="false" />
-        <AssociationConnector Association="BuildingCompanyModel.FK_Employee_User" ManuallyRouted="false" />
-        <AssociationConnector Association="BuildingCompanyModel.FK_Order_Employee" ManuallyRouted="false" />
-        <AssociationConnector Association="BuildingCompanyModel.FK_House_Material_House" ManuallyRouted="false" />
-        <AssociationConnector Association="BuildingCompanyModel.FK_HousePhoto_House" ManuallyRouted="false" />
-        <AssociationConnector Association="BuildingCompanyModel.FK_Order_House" ManuallyRouted="false" />
-        <AssociationConnector Association="BuildingCompanyModel.FK_House_Material_Material" ManuallyRouted="false" />
-        <AssociationConnector Association="BuildingCompanyModel.FK_Storage_Material_Material" ManuallyRouted="false" />
-        <AssociationConnector Association="BuildingCompanyModel.FK_Supply_Material_Material" ManuallyRouted="false" />
-        <AssociationConnector Association="BuildingCompanyModel.FK_Order_OrderStage" ManuallyRouted="false" />
-        <AssociationConnector Association="BuildingCompanyModel.FK_User_Role" ManuallyRouted="false" />
-        <AssociationConnector Association="BuildingCompanyModel.FK_Storage_Material_Storage" ManuallyRouted="false" />
-        <AssociationConnector Association="BuildingCompanyModel.FK_Supply_Supplier" ManuallyRouted="false" />
-        <AssociationConnector Association="BuildingCompanyModel.FK_Supply_Material_Supply" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="BuildingCompanyModel.Client" Width="1.5" PointX="3" PointY="5.25" />
+        <EntityTypeShape EntityType="BuildingCompanyModel.Employee" Width="1.5" PointX="3" PointY="1.125" />
+        <EntityTypeShape EntityType="BuildingCompanyModel.House" Width="1.5" PointX="3" PointY="9.25" />
+        <EntityTypeShape EntityType="BuildingCompanyModel.House_Material" Width="1.5" PointX="8" PointY="12.125" />
+        <EntityTypeShape EntityType="BuildingCompanyModel.Material" Width="1.5" PointX="5.75" PointY="8.5" />
+        <EntityTypeShape EntityType="BuildingCompanyModel.Order" Width="1.5" PointX="5.25" PointY="3.25" />
+        <EntityTypeShape EntityType="BuildingCompanyModel.Supplier" Width="1.5" PointX="3.5" PointY="13.875" />
+        <EntityTypeShape EntityType="BuildingCompanyModel.Supply" Width="1.5" PointX="5.75" PointY="13.5" />
+        <EntityTypeShape EntityType="BuildingCompanyModel.Supply_Material" Width="1.5" PointX="8" PointY="8.5" />
+        <EntityTypeShape EntityType="BuildingCompanyModel.sysdiagrams" Width="1.5" PointX="7.75" PointY="0.75" />
+        <EntityTypeShape EntityType="BuildingCompanyModel.SystemImage" Width="1.5" PointX="7.75" PointY="3.75" />
+        <EntityTypeShape EntityType="BuildingCompanyModel.User" Width="1.5" PointX="0.75" PointY="3.5" />
+        <AssociationConnector Association="BuildingCompanyModel.FK_Client_User" />
+        <AssociationConnector Association="BuildingCompanyModel.FK_Order_Client" />
+        <AssociationConnector Association="BuildingCompanyModel.FK_Employee_User" />
+        <AssociationConnector Association="BuildingCompanyModel.FK_Order_Employee" />
+        <AssociationConnector Association="BuildingCompanyModel.FK_House_Material_House" />
+        <AssociationConnector Association="BuildingCompanyModel.FK_Order_House" />
+        <AssociationConnector Association="BuildingCompanyModel.FK_House_Material_Material" />
+        <AssociationConnector Association="BuildingCompanyModel.FK_Supply_Material_Material" />
+        <AssociationConnector Association="BuildingCompanyModel.FK_Supply_Supplier" />
+        <AssociationConnector Association="BuildingCompanyModel.FK_Supply_Material_Supply" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

@@ -4,7 +4,6 @@ using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Windows;
-using System.Windows.Data;
 
 namespace BuildingCompany.Windows.SelectorDialog
 {
@@ -42,8 +41,6 @@ namespace BuildingCompany.Windows.SelectorDialog
         }
         public IEnumerable<object> SelectedElements => ElementsContainer.SelectedItems.Cast<object>();
         public bool SelectedEmpty => SelectedElements == null || SelectedElements.Count() == 0;
-
-
 
         public string DisplayMemberPath
         {

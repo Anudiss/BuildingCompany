@@ -5,30 +5,137 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:nav="clr-namespace:BuildingCompany.Windows.Navigation"
         xmlns:components="clr-namespace:BuildingCompany.Components"
+        xmlns:user="clr-namespace:BuildingCompany.UserData"
         mc:Ignorable="d"
         Title="Главное окно"
-        Height="720" Width="1024">
+        WindowStyle="None" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" WindowState="Maximized"
+        AllowsTransparency="True" Background="Transparent"
+        MouseDown="MainWindowRoot_MouseDown"
+        Height="720" Width="1024"
+        Name="MainWindowRoot"
+        d:DataContext="{d:DesignInstance nav:NavigationVM}"
+        Icon="{Binding Converter={StaticResource SystemImageConverter}, ConverterParameter='logo'}">
 
-    <Window.DataContext>
-        <nav:NavigationVM/>
-    </Window.DataContext>
+    <Border CornerRadius="0"
+            BorderBrush="{StaticResource WindowBorderBrush}"
+            BorderThickness="2"
+            Background="#6C757D">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="30"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            
+            <!--#region Window ToolBar-->
+            <Border HorizontalAlignment="Stretch"
+                    Background="{StaticResource WindowToolbarBackground}"
+                    BorderBrush="{StaticResource WindowBorderBrush}"
+                    BorderThickness="0 0 0 2">
+                <Grid Margin="2 0 0 0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
 
-    <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="200"/>
-            <ColumnDefinition Width="*"/>
-        </Grid.ColumnDefinitions>
+                    <!--#region Title-->
+                    <TextBlock Text="{Binding ElementName=MainWindowRoot, Path=Title}"
+                               VerticalAlignment="Center"
+                               Foreground="{StaticResource WindowTitleColor}"
+                               Grid.Column="0"
+                               FontSize="18" FontWeight="Medium"
+                               Margin="3 0 0 0"/>
+                    <!--#endregion-->
+                    <!--#region Buttons-->
+                    <StackPanel Orientation="Horizontal"
+                                HorizontalAlignment="Right"
+                                Grid.Column="1">
+                        <Button Height="15" Width="15" Command="{Binding MinimizeCommand}"
+                                Margin="6.5">
+                            <Button.Content>
+                                <Border Width="15" Height="5"
+                                        CornerRadius="2"
+                                        Background="{StaticResource WindowMinimizeButtonColor}"/>
+                            </Button.Content>
+                            <Button.Style>
+                                <Style TargetType="{x:Type Button}">
+                                    <Setter Property="Background" Value="Transparent"/>
+                                    <Setter Property="Template" Value="{StaticResource ToolBarButton}"/>
+                                </Style>
+                            </Button.Style>
+                        </Button>
+                        <Button Height="15" Width="15" Command="{Binding CloseCommand}"
+                                Margin="6.5">
+                            <Button.Content>
+                                <Ellipse Width="15" Height="15"
+                                         Fill="{StaticResource WindowCloseButtonColor}"/>
+                            </Button.Content>
+                            <Button.Style>
+                                <Style TargetType="{x:Type Button}">
+                                    <Setter Property="Background" Value="Transparent"/>
+                                    <Setter Property="Template" Value="{StaticResource ToolBarButton}"/>
+                                </Style>
+                            </Button.Style>
+                        </Button>
+                    </StackPanel>
+                    <!--#endregion-->
+                </Grid>
+            </Border>
+            <!--#endregion-->
+            
+            <Grid Grid.Row="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="200"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
 
-        <!--#region Navigation sidebar-->
-        <StackPanel Orientation="Vertical"
-                    Grid.Column="0"
-                    Background="#444444">
-            <components:NavigationButton Icon="Home" Title="Дома" Command="{Binding HouseCommand}"/>
-        </StackPanel>
-        <!--#endregion-->
-        <!--#region Content-->
-        <ContentControl Grid.Column="1"
-                        Content="{Binding CurrentView}"/>
-        <!--#endregion-->
-    </Grid>
+                <!--#region Navigation sidebar-->
+                <Border Grid.Column="0"
+                        BorderBrush="{StaticResource WindowBorderBrush}"
+                        BorderThickness="0 0 2 0"
+                        Background="{StaticResource NavigationBackgrund}"
+                        CornerRadius="0 0 0 8">
+                    <StackPanel Orientation="Vertical">
+                        <!--#region User info-->
+                        <StackPanel Orientation="Vertical"
+                                    Width="150"
+                                    Margin="0 8">
+                            <!--#region Photo-->
+                            <Border Width="150"
+                                    Height="150"
+                                    CornerRadius="75"
+                                    Margin="0 0 0 12"
+                                    BorderBrush="{StaticResource WindowBorderBrush}"
+                                    BorderThickness="2"
+                                    d:Background="White">
+                                <Image Source="{Binding Source={x:Static user:UserData.Instance}, Path=User.Photo}"
+                                       Stretch="UniformToFill"/>
+                            </Border>
+                            <!--#endregion-->
+                            <!--#region FIO-->
+                            <TextBlock Text="{Binding Source={x:Static user:UserData.Instance}, Path=User.FullName}"
+                                       FontSize="16" FontWeight="Medium"
+                                       Foreground="{StaticResource TextInputDefaultTextColor}"
+                                       d:Text="Иванasdawdasdов И. И."
+                                       TextAlignment="Center" TextWrapping="Wrap"/>
+                            <!--#endregion-->
+                        </StackPanel>
+                        <!--#endregion-->
+                        <!--#region Navigation buttons-->
+                        <components:NavigationButton Icon="Home" Title="Дома" Command="{Binding HouseCommand}"/>
+                        <components:NavigationButton Icon="ProductHunt" Title="Материалы" Command="{Binding MaterialsCommand}"/>
+                        <components:NavigationButton Icon="Dropbox" Title="Постащики" Command="{Binding SupplierCommand}"/>
+                        <components:NavigationButton Icon="Users" Title="Сотрудники" Command="{Binding EmployeeCommand}"/>
+                        <components:NavigationButton Icon="Truck" Title="Поставки" Command="{Binding SupplyCommand}"/>
+                        <components:NavigationButton Icon="SignOut" Title="Выйти" Command="{Binding SignOutCommand}"/>
+                        <!--#endregion-->
+                    </StackPanel>
+                </Border>
+                <!--#endregion-->
+                <!--#region Content-->
+                <ContentControl Grid.Column="1"
+                                Content="{Binding CurrentView}"/>
+                <!--#endregion-->
+            </Grid>
+        </Grid>
+    </Border>
 </Window>

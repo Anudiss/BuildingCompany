@@ -1,0 +1,95 @@
+﻿<Window x:Class="BuildingCompany.Windows.EditDocumentDialog.EditDocumentDialogWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:vm="clr-namespace:BuildingCompany.ViewModels"
+        mc:Ignorable="d"
+        AllowsTransparency="True"
+        MouseDown="EditDialogWindowRoot_MouseDown"
+        Background="Transparent"
+        SizeToContent="WidthAndHeight" ResizeMode="NoResize" WindowStyle="None"
+        WindowStartupLocation="CenterScreen"
+        Name="EditDocumentDialogWindowRoot"
+        d:DataContext="{d:DesignInstance vm:DocumentViewModelBase}"
+        Icon="{Binding Converter={StaticResource SystemImageConverter}, ConverterParameter='logo'}">
+    <Window.Title>
+        <MultiBinding StringFormat="{}{0} №{1} от {2:dd.MM.yyyy hh:mm:ss}" ConverterCulture="ru-RU">
+            <Binding Path="DocumentName"/>
+            <Binding Path="ID"/>
+            <Binding Path="Date"/>
+        </MultiBinding>
+    </Window.Title>
+
+    <Border CornerRadius="10"
+            Background="{StaticResource WindowBackground}"
+            BorderBrush="{StaticResource WindowBorderBrush}"
+            BorderThickness="2">
+        <StackPanel Orientation="Vertical"
+                    VerticalAlignment="Top">
+            <!--#region ToolBar -->
+            <Border CornerRadius="8 8 0 0"
+                    MaxHeight="34"
+                    HorizontalAlignment="Stretch"
+                    Background="{StaticResource WindowToolbarBackground}"
+                    BorderBrush="{StaticResource WindowBorderBrush}"
+                    BorderThickness="0 0 0 2">
+                <Grid Margin="2 0 0 0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+
+                    <!--#region Title-->
+                    <TextBlock Text="{Binding ElementName=EditDocumentDialogWindowRoot, Path=Title}"
+                               Foreground="{StaticResource WindowTitleColor}"
+                               VerticalAlignment="Center"
+                               Grid.Column="0"
+                               FontSize="18" FontWeight="Medium"
+                               Margin="3 0 0 0"/>
+                    <!--#endregion-->
+                    <!--#region Buttons-->
+                    <StackPanel Orientation="Horizontal"
+                                HorizontalAlignment="Right"
+                                Grid.Column="1">
+                        <Button Height="15" Width="15" Command="{Binding CloseCommand}"
+                                Margin="7.5">
+                            <Button.Content>
+                                <Ellipse Width="15" Height="15"
+                                         Fill="{StaticResource WindowCloseButtonColor}"/>
+                            </Button.Content>
+                            <Button.Style>
+                                <Style TargetType="{x:Type Button}">
+                                    <Setter Property="Background" Value="Transparent"/>
+                                    <Setter Property="Template" Value="{StaticResource ToolBarButton}"/>
+                                </Style>
+                            </Button.Style>
+                        </Button>
+                    </StackPanel>
+                    <!--#endregion-->
+                </Grid>
+            </Border>
+            <!--#endregion-->
+            <!--#region Window content-->
+            <ContentControl Content="{Binding ElementName=EditDocumentDialogWindowRoot, Path=DataContext}"/>
+            <!--#endregion-->
+            <!--#region Control buttons-->
+            <Border Background="{StaticResource WindowLowerToolbarBackground}"
+                    CornerRadius="0 0 8 8"
+                    BorderThickness="0 2 0 0"
+                    BorderBrush="{StaticResource WindowBorderBrush}">
+                <StackPanel Orientation="Horizontal"
+                            HorizontalAlignment="Center"
+                            Margin="3">
+                    <Button Content="Провести" Command="{Binding ConductDocumentCommand}"
+                            Margin="5 0"
+                            Style="{StaticResource DefaultButton}"/>
+                    <Button Content="Отмена" Command="{Binding CancelCommand}"
+                            Margin="5 0"
+                            Style="{StaticResource DefaultButton}"/>
+                </StackPanel>
+            </Border>
+            <!--#endregion-->
+        </StackPanel>
+    </Border>
+</Window>

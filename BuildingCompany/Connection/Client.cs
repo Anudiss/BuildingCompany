@@ -25,7 +25,8 @@ namespace BuildingCompany.Connection
         public string Name { get; set; }
         public string Patronymic { get; set; }
         public string Phone { get; set; }
-        public string User_id { get; set; }
+        public int User_id { get; set; }
+        public bool IsDeleted { get; set; }
     
         public virtual User User { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

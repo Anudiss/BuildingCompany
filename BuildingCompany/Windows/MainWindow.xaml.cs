@@ -1,6 +1,6 @@
 ﻿using BuildingCompany.Windows.Navigation;
-using System;
 using System.Windows;
+using System.Windows.Input;
 
 namespace BuildingCompany.Windows
 {
@@ -12,6 +12,20 @@ namespace BuildingCompany.Windows
         public MainWindow()
         {
             InitializeComponent();
+
+            DataContext = new NavigationVM()
+            {
+                Close = Close,
+                Minimize = Minimize
+            };
+        }
+
+        private void Minimize() => WindowState = WindowState.Minimized;
+
+        private void MainWindowRoot_MouseDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+            if (e.ChangedButton == MouseButton.Left)
+                DragMove();
         }
     }
 }

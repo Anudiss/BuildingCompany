@@ -4,8 +4,8 @@
     {
         public Stage Stage
         {
-            get => (Stage)OrderStage_id;
-            set => OrderStage_id = (int)value;
+            get => Stages.AllStages[OrderStage_id];
+            set => OrderStage_id = Stages.AllStages.IndexOf(value);
         }
     }
 }

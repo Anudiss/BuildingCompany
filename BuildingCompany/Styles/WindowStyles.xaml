@@ -1,0 +1,16 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <SolidColorBrush x:Key="WindowBackground" Color="#ADB5BD"/>
+    
+    <SolidColorBrush x:Key="WindowToolbarBackground" Color="#212529"/>
+    <SolidColorBrush x:Key="WindowLowerToolbarBackground" Color="#495057"/>
+    <SolidColorBrush x:Key="WindowCloseButtonColor" Color="#E01E37"/>
+    <SolidColorBrush x:Key="WindowMinimizeButtonColor" Color="#52796f"/>
+    <SolidColorBrush x:Key="WindowTitleColor" Color="#FFFFFF"/>
+    
+    <SolidColorBrush x:Key="WindowBorderBrush" Color="#000000"/>
+    <SolidColorBrush x:Key="WindowSelectedBorderBrush" Color="#303030"/>
+
+    <SolidColorBrush x:Key="NavigationBackgrund" Color="#3F434D"/>
+</ResourceDictionary>

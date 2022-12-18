@@ -26,8 +26,8 @@
                             </Grid.ColumnDefinitions>
 
                             <local:TextInput x:Name="PART_TextBox"
-                                                VerticalAlignment="Center"
-                                                HorizontalContentAlignment="Right"/>
+                                             VerticalAlignment="Center"
+                                             HorizontalContentAlignment="Right"/>
 
                             <Grid Grid.Column="1"
                                   Height="26"
