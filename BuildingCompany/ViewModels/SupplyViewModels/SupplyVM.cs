@@ -13,7 +13,7 @@ namespace BuildingCompany.ViewModels.SupplyViewModels
         private RelayCommand _editCommand;
 
         public RelayCommand EditCommand =>
-            _editCommand ?? (_editCommand = new RelayCommand(arg => EditSupply()));
+            _editCommand ?? (_editCommand = new RelayCommand(arg => EditSupply(), arg => UserData.UserData.Instance.User.HasPermission(Permissions.Permission.ShowSupply)));
 
         private readonly Supply _supply;
 

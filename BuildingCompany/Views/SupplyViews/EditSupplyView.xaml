@@ -6,6 +6,7 @@
              xmlns:vm="clr-namespace:BuildingCompany.ViewModels.SupplyViewModels"
              xmlns:components="clr-namespace:BuildingCompany.Components"
              xmlns:database="clr-namespace:BuildingCompany.Connection"
+             xmlns:permission="clr-namespace:BuildingCompany.Permissions"
              mc:Ignorable="d"
              d:DataContext="{d:DesignInstance vm:EditSupplyVM}"
              Background="Transparent">
@@ -39,7 +40,7 @@
                        Foreground="{StaticResource InputFieldDefaultTextColor}"/>
             <ComboBox ItemsSource="{Binding Source={x:Static database:DatabaseContext.Entities}, Path=Supplier.Local}"
                       SelectedItem="{Binding Supplier}"
-                      IsReadOnly="{Binding IsNew}"
+                      IsEnabled="{Binding IsEnabled}"
                       DisplayMemberPath="Name"
                       Margin="0 5"/>
             <components:TextInput Label="Сумма"
@@ -56,6 +57,7 @@
                   
                   ItemsSource="{Binding Materials}"
                   d:ItemsSource="{d:SampleData ItemCount=4}"
+                  IsReadOnly="{Binding IsReadOnly}"
                   
                   ScrollViewer.CanContentScroll="False"
                   FontSize="16"
@@ -94,11 +96,9 @@
                     </DataGridTextColumn.CellStyle>
                 </DataGridTextColumn>
                 <DataGridTextColumn Binding="{Binding Cost, StringFormat='{}{0:C2}', ConverterCulture='ru-RU', Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnExceptions=True}"
-                                    IsReadOnly="{Binding IsNew}"
                                     Header="Цена"
                                     Width="Auto"/>
                 <DataGridTextColumn Header="Количество"
-                                    IsReadOnly="{Binding IsNew}"
                                     Binding="{Binding Count, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnExceptions=True}"/>
                 <DataGridTextColumn Binding="{Binding Sum, StringFormat='{}{0:C2}', ConverterCulture='ru-RU'}"
                                     Header="Сумма"
@@ -117,9 +117,11 @@
                     <Setter Property="Margin" Value="5 2"/>
                 </Style>
             </StackPanel.Resources>
-            <Button Content="Добавить" Command="{Binding AddMaterialCommand}"/>
+            <Button Content="Добавить" Command="{Binding AddMaterialCommand}"
+                    Tag="{x:Static permission:Permission.EditSupply}"/>
             <Button Content="Удалить" Command="{Binding RemoveMaterialCommand}"
-                                      CommandParameter="{Binding ElementName=MaterialContainer, Path=SelectedItems}"/>
+                                      CommandParameter="{Binding ElementName=MaterialContainer, Path=SelectedItems}"
+                    Tag="{x:Static permission:Permission.EditSupply}"/>
         </StackPanel>
         <!--#endregion-->
     </Grid>

@@ -136,9 +136,6 @@
     <Compile Include="Connection\Supply_Material.cs">
       <DependentUpon>Database.tt</DependentUpon>
     </Compile>
-    <Compile Include="Connection\sysdiagrams.cs">
-      <DependentUpon>Database.tt</DependentUpon>
-    </Compile>
     <Compile Include="Connection\SystemImage.cs">
       <DependentUpon>Database.tt</DependentUpon>
     </Compile>
@@ -146,6 +143,8 @@
       <DependentUpon>Database.tt</DependentUpon>
     </Compile>
     <Compile Include="Converters\BooleanToVisibilityConverter.cs" />
+    <Compile Include="Converters\PermissionToBoolean.cs" />
+    <Compile Include="Converters\PermissionToVisibility.cs" />
     <Compile Include="Converters\SystemImageConverter.cs" />
     <Compile Include="Extensions\Client.Extension.cs" />
     <Compile Include="Extensions\Employee.Extension.cs" />
@@ -188,6 +187,15 @@
     <Compile Include="ViewModels\SupplyViewModels\SupplyVM.cs" />
     <Compile Include="ViewModels\ViewModelBase.cs" />
     <Compile Include="ViewModels\WindowViewModelBase.cs" />
+    <Compile Include="Views\ClientViews\ClientPageView.xaml.cs">
+      <DependentUpon>ClientPageView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ClientViews\ClientView.xaml.cs">
+      <DependentUpon>ClientView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ClientViews\EditClientView.xaml.cs">
+      <DependentUpon>EditClientView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\EmployeeViews\EditEmployeeView.xaml.cs">
       <DependentUpon>EditEmployeeView.xaml</DependentUpon>
     </Compile>
@@ -214,6 +222,18 @@
     </Compile>
     <Compile Include="Views\MaterialViews\MaterialView.xaml.cs">
       <DependentUpon>MaterialView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\OrderViewModels\EditOrderVM.cs" />
+    <Compile Include="ViewModels\OrderViewModels\OrderPageVM.cs" />
+    <Compile Include="ViewModels\OrderViewModels\OrderVM.cs" />
+    <Compile Include="Views\OrderViews\EditOrderView.xaml.cs">
+      <DependentUpon>EditOrderView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\OrderViews\OrderPageView.xaml.cs">
+      <DependentUpon>OrderPageView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\OrderViews\OrderView.xaml.cs">
+      <DependentUpon>OrderView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\SupplierViews\EditSupplierView.xaml.cs">
       <DependentUpon>EditSupplierView.xaml</DependentUpon>
@@ -293,9 +313,7 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Views\ClientViews\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
@@ -368,6 +386,18 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\ClientViews\ClientPageView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\ClientViews\ClientView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\ClientViews\EditClientView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\EmployeeViews\EditEmployeeView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -401,6 +431,18 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\MaterialViews\MaterialView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\OrderViews\EditOrderView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\OrderViews\OrderPageView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\OrderViews\OrderView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

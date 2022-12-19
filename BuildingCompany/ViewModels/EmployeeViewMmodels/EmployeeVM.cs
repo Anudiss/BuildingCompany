@@ -10,7 +10,7 @@ namespace BuildingCompany.ViewModels.EmployeeViewMmodels
         private RelayCommand _editCommand;
 
         public RelayCommand EditCommand =>
-            _editCommand ?? (_editCommand = new RelayCommand(arg => EditEmployee()));
+            _editCommand ?? (_editCommand = new RelayCommand(arg => EditEmployee(), arg => UserData.UserData.Instance.User.HasPermission(Permissions.Permission.ShowEmployee)));
 
         private readonly Employee _employee;
 

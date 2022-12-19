@@ -35,6 +35,7 @@ namespace BuildingCompany.ViewModels.SupplierViewModels
                 OnPropertyChanged();
             }
         }
+        public bool IsEnabled => UserData.UserData.Instance.User.HasPermission(Permissions.Permission.EditSupplier);
         public bool IsNew => _supplier.ID == 0;
 
 

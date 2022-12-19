@@ -11,7 +11,11 @@
                     xmlns:employeevm="clr-namespace:BuildingCompany.ViewModels.EmployeeViewMmodels"
                     xmlns:employeeviews="clr-namespace:BuildingCompany.Views.EmployeeViews"
                     xmlns:supplyvm="clr-namespace:BuildingCompany.ViewModels.SupplyViewModels"
-                    xmlns:supplyviews="clr-namespace:BuildingCompany.Views.SupplyViews">
+                    xmlns:supplyviews="clr-namespace:BuildingCompany.Views.SupplyViews"
+                    xmlns:clientvm="clr-namespace:BuildingCompany.ViewModels.ClientViewModels"
+                    xmlns:clientviews="clr-namespace:BuildingCompany.Views.ClientViews"
+                    xmlns:ordervm="clr-namespace:BuildingCompany.ViewModels.OrderViewModels"
+                    xmlns:orderviews="clr-namespace:BuildingCompany.Views.OrderViews">
 
     <!--#region House links-->
     <DataTemplate DataType="{x:Type housevm:HouseVM}">
@@ -74,6 +78,28 @@
     </DataTemplate>
     <DataTemplate DataType="{x:Type supplyvm:EditSupplyVM}">
         <supplyviews:EditSupplyView/>
+    </DataTemplate>
+    <!--#endregion-->
+    <!--#region Supply links-->
+    <DataTemplate DataType="{x:Type clientvm:ClientVM}">
+        <clientviews:ClientView/>
+    </DataTemplate>
+    <DataTemplate DataType="{x:Type clientvm:ClientPageVM}">
+        <clientviews:ClientPageView/>
+    </DataTemplate>
+    <DataTemplate DataType="{x:Type clientvm:EditClientVM}">
+        <clientviews:EditClientView/>
+    </DataTemplate>
+    <!--#endregion-->
+    <!--#region Order links-->
+    <DataTemplate DataType="{x:Type ordervm:OrderVM}">
+        <orderviews:OrderView/>
+    </DataTemplate>
+    <DataTemplate DataType="{x:Type ordervm:OrderPageVM}">
+        <orderviews:OrderPageView/>
+    </DataTemplate>
+    <DataTemplate DataType="{x:Type ordervm:EditOrderVM}">
+        <orderviews:EditOrderView/>
     </DataTemplate>
     <!--#endregion-->
 

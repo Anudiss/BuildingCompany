@@ -5,6 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:vm="clr-namespace:BuildingCompany.ViewModels.HouseViewModels"
              xmlns:components="clr-namespace:BuildingCompany.Components"
+             xmlns:permission="clr-namespace:BuildingCompany.Permissions"
              xmlns:fa="http://schemas.fontawesome.io/icons/"
              mc:Ignorable="d"
              d:DataContext="{d:DesignInstance vm:HousePageVM}">
@@ -89,10 +90,13 @@
                     </Style>
                 </StackPanel.Resources>
                 <Button Content="Добавить"
-                        Command="{Binding AddHouseCommand}"/>
+                        Command="{Binding AddHouseCommand}"
+                        Tag="{x:Static permission:Permission.EditHouse}"/>
                 <Button Content="Удалить"
                         Command="{Binding RemoveHouseCommand}"
-                        CommandParameter="{Binding ElementName=HouseContainer, Path=SelectedItems}"/>
+                        CommandParameter="{Binding ElementName=HouseContainer, Path=SelectedItems}"
+                        Tag="{x:Static permission:Permission.EditHouse}"/>
+
             </StackPanel>
             <!--#endregion -->
         </Grid>

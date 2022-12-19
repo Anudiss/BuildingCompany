@@ -6,7 +6,9 @@
 
         public void Delete()
         {
-
+            IsDeleted = true;
+            DatabaseContext.Entities.User.Remove(User);
+            User = null;
         }
     }
 }

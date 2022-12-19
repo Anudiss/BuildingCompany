@@ -1,0 +1,113 @@
+﻿<UserControl x:Class="BuildingCompany.Views.OrderViews.EditOrderView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:vm="clr-namespace:BuildingCompany.ViewModels.OrderViewModels"
+             xmlns:components="clr-namespace:BuildingCompany.Components"
+             xmlns:sys="clr-namespace:System;assembly=mscorlib"
+             xmlns:database="clr-namespace:BuildingCompany.Connection"
+             xmlns:permission="clr-namespace:BuildingCompany.Permissions"
+             mc:Ignorable="d"
+             d:DataContext="{d:DesignInstance vm:EditOrderVM}">
+
+    <StackPanel Orientation="Vertical"
+                Width="300"
+                Margin="10 5">
+        <StackPanel.Resources>
+            <Style TargetType="{x:Type TextBlock}">
+                <Setter Property="FontSize" Value="16"/>
+                <Setter Property="FontWeight" Value="Medium"/>
+                <Setter Property="Foreground" Value="{StaticResource InputFieldDefaultTextColor}"/>
+            </Style>
+        </StackPanel.Resources>
+        <StackPanel Margin="10 5">
+            <TextBlock Text="Клиент"/>
+            <ComboBox ItemsSource="{Binding Source={x:Static vm:EditOrderVM.Clients}, Path=.}"
+                      SelectedItem="{Binding Client}"
+                      DisplayMemberPath="FullName">
+                <ComboBox.IsEnabled>
+                    <MultiBinding Converter="{StaticResource PermissionToBoolean}">
+                        <Binding Source="{x:Static permission:Permission.EditOrderClient}" Path="."/>
+                        <Binding Path="IsEnabled"/>
+                    </MultiBinding>
+                </ComboBox.IsEnabled>
+            </ComboBox>
+        </StackPanel>
+        <StackPanel Margin="10 5">
+            <TextBlock Text="Дом"/>
+            <ComboBox ItemsSource="{Binding Source={x:Static vm:EditOrderVM.Houses}, Path=.}"
+                      SelectedItem="{Binding House}"
+                      DisplayMemberPath="Name">
+                <ComboBox.IsEnabled>
+                    <MultiBinding Converter="{StaticResource PermissionToBoolean}">
+                        <Binding Source="{x:Static permission:Permission.EditOrder}" Path="."/>
+                        <Binding Path="IsEnabled"/>
+                    </MultiBinding>
+                </ComboBox.IsEnabled>
+            </ComboBox>
+        </StackPanel>
+        <StackPanel Margin="10 5">
+            <TextBlock Text="Ответственный"/>
+            <ComboBox ItemsSource="{Binding Source={x:Static vm:EditOrderVM.Executors}, Path=.}"
+                      SelectedItem="{Binding Executor}"
+                      DisplayMemberPath="FullName"
+                      IsEnabled="False"/>
+        </StackPanel>
+        <components:TextInput Label="Сумма заказа"
+                              Text="{Binding House.Cost, StringFormat='{}{0:C2}', ConverterCulture='ru-RU'}"
+                              IsEnabled="False"
+                              Margin="10 5"/>
+        <StackPanel Orientation="Horizontal"
+                    HorizontalAlignment="Center">
+            <StackPanel.Visibility>
+                <MultiBinding Converter="{StaticResource PermissionToVisibility}">
+                    <Binding Source="{x:Static permission:Permission.AcceptOrder}" Path="."/>
+                    <Binding Source="{x:Static permission:Permission.DenyOrder}" Path="."/>
+                    <Binding Path="IsProcessing"/>
+                </MultiBinding>
+            </StackPanel.Visibility>
+            <Button Margin="10 5"
+                    Style="{StaticResource DefaultButton}"
+                    Content="Принят"
+                    Command="{Binding AcceptCommand}"/>
+            <Button Margin="10 5"
+                    Style="{StaticResource DefaultButton}"
+                    Content="Отклонён"
+                    Command="{Binding DenyCommand}"/>
+        </StackPanel>
+        <Button Style="{StaticResource DefaultButton}"
+                Content="Оплатить"
+                HorizontalAlignment="Center"
+                Command="{Binding PayCommand}">
+            <Button.Visibility>
+                <MultiBinding Converter="{StaticResource PermissionToVisibility}">
+                    <Binding Source="{x:Static permission:Permission.PayOrder}"/>
+                    <Binding Path="IsShouldToPay"/>
+                </MultiBinding>
+            </Button.Visibility>
+        </Button>
+        <Button Style="{StaticResource DefaultButton}"
+                Content="Начать выполнение"
+                HorizontalAlignment="Center"
+                Command="{Binding BeginExecutionCommand}">
+            <Button.Visibility>
+                <MultiBinding Converter="{StaticResource PermissionToVisibility}">
+                    <Binding Source="{x:Static permission:Permission.OrderExecutionBegin}"/>
+                    <Binding Path="IsPaid"/>
+                </MultiBinding>
+            </Button.Visibility>
+        </Button>
+        <Button Style="{StaticResource DefaultButton}"
+                Content="Завершить"
+                HorizontalAlignment="Center"
+                Command="{Binding FinishCommand}">
+            <Button.Visibility>
+                <MultiBinding Converter="{StaticResource PermissionToVisibility}">
+                    <Binding Source="{x:Static permission:Permission.FinishOrder}"/>
+                    <Binding Path="IsExecution"/>
+                </MultiBinding>
+            </Button.Visibility>
+        </Button>
+    </StackPanel>
+</UserControl>

@@ -11,12 +11,14 @@ namespace BuildingCompany.Connection
             set => Role_ID = Roles.AllRoles.IndexOf(value);
         }
 
-        public string FullName => UserEmployee == null ? UserClient.FullName : UserEmployee.FullName;
+        public string FullName => UserEmployee != null ? $"{UserEmployee.FullName}\n{UserEmployee.Position.Name}" :
+                                  UserClient != null ? $"{UserClient.FullName}\n{Role.Name}" : Role.Name;
 
         public byte[] Photo => UserEmployee?.Photo ?? SystemImage.GetImageByName("user");
 
-        public Employee UserEmployee => Employee.FirstOrDefault();
-        public Client UserClient => Client.FirstOrDefault();
+        public Employee UserEmployee => Employee.FirstOrDefault(e => !e.IsDeleted);
+        public Client UserClient => Client.FirstOrDefault(e => !e.IsDeleted);
+        public Employee Manager => UserEmployee?.Position == Positions.Manager ? UserEmployee : null;
 
         public bool HasPermission(Permission permission) =>
             (AllowPermissions.AllowRolePermissions.ContainsKey(Role) && AllowPermissions.AllowRolePermissions[Role].Contains(permission)) ||

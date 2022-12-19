@@ -14,8 +14,7 @@
         <EntityTypeShape EntityType="BuildingCompanyModel.Supplier" Width="1.5" PointX="3.5" PointY="13.875" />
         <EntityTypeShape EntityType="BuildingCompanyModel.Supply" Width="1.5" PointX="5.75" PointY="13.5" />
         <EntityTypeShape EntityType="BuildingCompanyModel.Supply_Material" Width="1.5" PointX="8" PointY="8.5" />
-        <EntityTypeShape EntityType="BuildingCompanyModel.sysdiagrams" Width="1.5" PointX="7.75" PointY="0.75" />
-        <EntityTypeShape EntityType="BuildingCompanyModel.SystemImage" Width="1.5" PointX="7.75" PointY="3.75" />
+        <EntityTypeShape EntityType="BuildingCompanyModel.SystemImage" Width="1.5" PointX="5.75" PointY="0.75" />
         <EntityTypeShape EntityType="BuildingCompanyModel.User" Width="1.5" PointX="0.75" PointY="3.5" />
         <AssociationConnector Association="BuildingCompanyModel.FK_Client_User" />
         <AssociationConnector Association="BuildingCompanyModel.FK_Order_Client" />

@@ -1,11 +1,11 @@
-﻿<UserControl x:Class="BuildingCompany.Views.EmployeeViews.EmployeeView"
+﻿<UserControl x:Class="BuildingCompany.Views.ClientViews.ClientView"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:vm="clr-namespace:BuildingCompany.ViewModels.EmployeeViewMmodels"
+             xmlns:vm="clr-namespace:BuildingCompany.ViewModels.ClientViewModels"
              mc:Ignorable="d"
-             d:DataContext="{d:DesignInstance vm:EmployeeVM}"
+             d:DataContext="{d:DesignInstance vm:ClientVM}"
              Background="Transparent"
              Margin="0"
              Padding="0">
@@ -14,10 +14,10 @@
           Margin="0"
           HorizontalAlignment="Stretch">
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="Auto" SharedSizeGroup="EmployeeID"/>
-            <ColumnDefinition Width="Auto" SharedSizeGroup="EmployeeSurname"/>
-            <ColumnDefinition Width="Auto" SharedSizeGroup="EmployeeName"/>
-            <ColumnDefinition Width="Auto" SharedSizeGroup="EmployeePatronymic"/>
+            <ColumnDefinition Width="Auto" SharedSizeGroup="ClientID"/>
+            <ColumnDefinition Width="Auto" SharedSizeGroup="ClientSurname"/>
+            <ColumnDefinition Width="Auto" SharedSizeGroup="ClientName"/>
+            <ColumnDefinition Width="Auto" SharedSizeGroup="ClientPatronymic"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
 
@@ -58,7 +58,7 @@
                        HorizontalAlignment="Left"/>
         </Border>
         <Border Grid.Column="4">
-            <TextBlock Text="{Binding Position.Name}"
+            <TextBlock Text="{Binding Phone}"
                        HorizontalAlignment="Left"/>
         </Border>
     </Grid>

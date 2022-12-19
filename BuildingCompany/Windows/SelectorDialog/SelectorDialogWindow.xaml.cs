@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Windows;
+using System.Windows.Controls;
 
 namespace BuildingCompany.Windows.SelectorDialog
 {
@@ -51,6 +52,20 @@ namespace BuildingCompany.Windows.SelectorDialog
         // Using a DependencyProperty as the backing store for DisplayBinding.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty DisplayMemberPathProperty =
             DependencyProperty.Register("DisplayMemberPath", typeof(string), typeof(SelectorDialogWindow), new PropertyMetadata(""));
+
+
+
+        public SelectionMode SelectionMode
+        {
+            get { return (SelectionMode)GetValue(SelectionModeProperty); }
+            set { SetValue(SelectionModeProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for MyProperty.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty SelectionModeProperty =
+            DependencyProperty.Register("SelectionMode", typeof(SelectionMode), typeof(SelectorDialogWindow), new PropertyMetadata(SelectionMode.Multiple));
+
+
 
         public SelectorDialogWindow(IEnumerable<object> selectableElements)
         {

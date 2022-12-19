@@ -6,6 +6,7 @@
              xmlns:vm="clr-namespace:BuildingCompany.ViewModels.MaterialViewModels"
              xmlns:components="clr-namespace:BuildingCompany.Components"
              xmlns:fa="http://schemas.fontawesome.io/icons/"
+             xmlns:permission="clr-namespace:BuildingCompany.Permissions"
              mc:Ignorable="d"
              d:Width="800"
              d:DataContext="{d:DesignInstance vm:MaterialPageVM}"
@@ -93,10 +94,12 @@
                     </Style>
                 </StackPanel.Resources>
                 <Button Content="Добавить"
-                        Command="{Binding AddMaterialCommand}"/>
+                        Command="{Binding AddMaterialCommand}"
+                        Tag="{x:Static permission:Permission.EditMaterial}"/>
                 <Button Content="Удалить"
                         Command="{Binding RemoveMaterialCommand}"
-                        CommandParameter="{Binding ElementName=MaterialContaniner, Path=SelectedItems}"/>
+                        CommandParameter="{Binding ElementName=MaterialContaniner, Path=SelectedItems}"
+                        Tag="{x:Static permission:Permission.EditMaterial}"/>
             </StackPanel>
             <!--#endregion -->
         </Grid>
@@ -177,6 +180,10 @@
                                     <ContentPresenter VerticalAlignment="Center"
                                                       HorizontalAlignment="Stretch"
                                                       Margin="0"/>
+
+                                    <Border.InputBindings>
+                                        <MouseBinding Gesture="LeftDoubleClick" Command="{Binding EditCommand}"/>
+                                    </Border.InputBindings>
                                 </Border>
 
                                 <ControlTemplate.Triggers>

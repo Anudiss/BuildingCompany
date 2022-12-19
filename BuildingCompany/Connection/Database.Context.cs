@@ -34,7 +34,6 @@ namespace BuildingCompany.Connection
         public virtual DbSet<Supplier> Supplier { get; set; }
         public virtual DbSet<Supply> Supply { get; set; }
         public virtual DbSet<Supply_Material> Supply_Material { get; set; }
-        public virtual DbSet<sysdiagrams> sysdiagrams { get; set; }
         public virtual DbSet<SystemImage> SystemImage { get; set; }
         public virtual DbSet<User> User { get; set; }
     }

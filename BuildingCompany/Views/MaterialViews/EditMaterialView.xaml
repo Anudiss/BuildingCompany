@@ -12,8 +12,10 @@
                 Width="300"
                 Margin="10 5">
         <components:TextInput Label="Название"
+                              IsEnabled="{Binding IsEnabled}"
                               Text="{Binding Name, UpdateSourceTrigger=LostFocus, ValidatesOnExceptions=True}"/>
         <components:TextInput Label="Цена"
+                              IsEnabled="{Binding IsEnabled}"
                               Text="{Binding Cost, StringFormat='{}{0:C2}', ConverterCulture='ru-RU', UpdateSourceTrigger=PropertyChanged, ValidatesOnExceptions=True}"/>
     </StackPanel>
 </UserControl>

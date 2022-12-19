@@ -9,7 +9,7 @@ namespace BuildingCompany.ViewModels.MaterialViewModels
         private RelayCommand _editCommand;
 
         public RelayCommand EditCommand =>
-            _editCommand ?? (_editCommand = new RelayCommand(arg => EditMaterial()));
+            _editCommand ?? (_editCommand = new RelayCommand(arg => EditMaterial(), arg => UserData.UserData.Instance.User.HasPermission(Permissions.Permission.ShowMaterial)));
 
         private readonly Material _material;
 

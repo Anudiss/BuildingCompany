@@ -106,6 +106,9 @@ namespace BuildingCompany.ViewModels.HouseViewModels
         public List<MaterialGridRowVM> Materials =>
             _house.House_Material.Select(houseMaterial => new MaterialGridRowVM(houseMaterial)).ToList();
 
+
+        public bool IsReadOnly => !IsEnabled;
+        public bool IsEnabled => UserData.UserData.Instance.User.HasPermission(Permissions.Permission.EditHouse);
         public bool IsNew => _house.ID == 0;
 
         public EditHouseVM(House house = null)

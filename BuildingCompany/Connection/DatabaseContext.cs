@@ -12,6 +12,9 @@ namespace BuildingCompany.Connection
 
             Entities.SystemImage.Load();
             Entities.Supplier.Load();
+            Entities.Client.Load();
+            Entities.Employee.Load();
+            Entities.House.Load();
         }
 
         public static void CancelChanges()

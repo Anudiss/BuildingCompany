@@ -6,6 +6,7 @@
              xmlns:vm="clr-namespace:BuildingCompany.ViewModels.SupplierViewModels"
              xmlns:components="clr-namespace:BuildingCompany.Components"
              xmlns:fa="http://schemas.fontawesome.io/icons/"
+             xmlns:permission="clr-namespace:BuildingCompany.Permissions"
              mc:Ignorable="d"
              d:Width="800"
              d:DataContext="{d:DesignInstance vm:SupplierPageVM}"
@@ -95,10 +96,12 @@
                     </Style>
                 </StackPanel.Resources>
                 <Button Content="Добавить"
-                    Command="{Binding AddSupplierCommand}"/>
+                        Command="{Binding AddSupplierCommand}"
+                        Tag="{x:Static permission:Permission.EditSupplier}"/>
                 <Button Content="Удалить"
-                    Command="{Binding RemoveMaterialCommand}"
-                    CommandParameter="{Binding ElementName=SupplierContaniner, Path=SelectedItems}"/>
+                        Command="{Binding RemoveMaterialCommand}"
+                        CommandParameter="{Binding ElementName=SupplierContaniner, Path=SelectedItems}"
+                        Tag="{x:Static permission:Permission.EditSupplier}"/>
             </StackPanel>
             <!--#endregion -->
         </Grid>
@@ -169,7 +172,11 @@
                                         <ContentPresenter VerticalAlignment="Center"
                                                               HorizontalAlignment="Stretch"
                                                               Margin="0"/>
-                                    </Border>
+
+                                    <Border.InputBindings>
+                                        <MouseBinding Gesture="LeftDoubleClick" Command="{Binding EditCommand}"/>
+                                    </Border.InputBindings>
+                                </Border>
 
                                     <ControlTemplate.Triggers>
                                         <Trigger Property="IsMouseOver" Value="True">

@@ -6,6 +6,7 @@
              xmlns:vm="clr-namespace:BuildingCompany.ViewModels.EmployeeViewMmodels"
              xmlns:components="clr-namespace:BuildingCompany.Components"
              xmlns:database="clr-namespace:BuildingCompany.Connection"
+             xmlns:permission="clr-namespace:BuildingCompany.Permissions"
              mc:Ignorable="d"
              d:DataContext="{d:DesignInstance vm:EditEmployeeVM}">
 
@@ -19,11 +20,14 @@
         <StackPanel Margin="5 0"
                     Grid.Column="0">
             <components:TextInput Label="Фамилия"
-                                    Text="{Binding Surname, Mode=TwoWay, UpdateSourceTrigger=LostFocus, ValidatesOnExceptions=True}"/>
+                                  IsEnabled="{Binding IsEnabled}"
+                                  Text="{Binding Surname, Mode=TwoWay, UpdateSourceTrigger=LostFocus, ValidatesOnExceptions=True}"/>
             <components:TextInput Label="Имя"
-                                    Text="{Binding Name, Mode=TwoWay, UpdateSourceTrigger=LostFocus, ValidatesOnExceptions=True}"/>
+                                  IsEnabled="{Binding IsEnabled}"
+                                  Text="{Binding Name, Mode=TwoWay, UpdateSourceTrigger=LostFocus, ValidatesOnExceptions=True}"/>
             <components:TextInput Label="Отчество"
-                                    Text="{Binding Patronymic, Mode=TwoWay, UpdateSourceTrigger=LostFocus, ValidatesOnExceptions=True}"/>
+                                  IsEnabled="{Binding IsEnabled}"
+                                  Text="{Binding Patronymic, Mode=TwoWay, UpdateSourceTrigger=LostFocus, ValidatesOnExceptions=True}"/>
             <StackPanel Orientation="Horizontal"
                         HorizontalAlignment="Center"
                         Margin="0 10">
@@ -36,7 +40,8 @@
                 </StackPanel.Resources>
                 <RadioButton Content="{x:Static database:Genders.Man}"
                              Command="{Binding GenderCommnad}"
-                             CommandParameter="{Binding RelativeSource={RelativeSource Self}, Path=Content}">
+                             CommandParameter="{Binding RelativeSource={RelativeSource Self}, Path=Content}"
+                             IsEnabled="{Binding IsEnabled}">
                     <RadioButton.Style>
                         <Style TargetType="{x:Type RadioButton}">
                             <Style.Triggers>
@@ -49,7 +54,8 @@
                 </RadioButton>
                 <RadioButton Content="{x:Static database:Genders.Woman}"
                              Command="{Binding GenderCommnad}"
-                             CommandParameter="{Binding RelativeSource={RelativeSource Self}, Path=Content}">
+                             CommandParameter="{Binding RelativeSource={RelativeSource Self}, Path=Content}"
+                             IsEnabled="{Binding IsEnabled}">
                     <RadioButton.Style>
                         <Style TargetType="{x:Type RadioButton}">
                             <Style.Triggers>
@@ -64,10 +70,12 @@
             <TextBlock Text="Дата рождения"
                        FontSize="14" FontWeight="Medium"
                        Foreground="{StaticResource InputFieldDefaultTextColor}"/>
-            <DatePicker SelectedDate="{Binding BirthDay}"/>
+            <DatePicker SelectedDate="{Binding BirthDay}"
+                        IsEnabled="{Binding IsEnabled}"/>
             <ComboBox ItemsSource="{Binding Source={x:Static database:Positions.AllPositions}, Path=.}"
                       DisplayMemberPath="Name"
-                      SelectedItem="{Binding Position}"/>
+                      SelectedItem="{Binding Position}"
+                      IsEnabled="{Binding IsEnabled}"/>
 
             <StackPanel Orientation="Vertical">
                 <StackPanel.Style>
@@ -80,9 +88,11 @@
                     </Style>
                 </StackPanel.Style>
                 <components:TextInput Label="Логин"
-                                      Text="{Binding Login}"/>
+                                      Text="{Binding Login}"
+                                      IsEnabled="{Binding IsEnabled}"/>
                 <components:TextInput Label="Пароль"
-                                      Text="{Binding Password}"/>
+                                      Text="{Binding Password}"
+                                      IsEnabled="{Binding IsEnabled}"/>
             </StackPanel>
         </StackPanel>
         <StackPanel Margin="5 0"
@@ -93,7 +103,8 @@
             <Button Content="Изменить" Command="{Binding ChangeImageCommand}"
                     Style="{StaticResource DefaultButton}"
                     HorizontalAlignment="Center"
-                    Margin="0 5"/>
+                    Margin="0 5"
+                    Tag="{x:Static permission:Permission.EditEmployee}"/>
         </StackPanel>
     </Grid>
 </UserControl>

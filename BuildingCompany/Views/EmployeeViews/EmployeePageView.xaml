@@ -6,6 +6,7 @@
              xmlns:vm="clr-namespace:BuildingCompany.ViewModels.EmployeeViewMmodels"
              xmlns:components="clr-namespace:BuildingCompany.Components"
              xmlns:fa="http://schemas.fontawesome.io/icons/"
+             xmlns:permission="clr-namespace:BuildingCompany.Permissions"
              mc:Ignorable="d"
              d:Width="1000"
              d:DataContext="{d:DesignInstance vm:EmployeePageVM}"
@@ -100,10 +101,12 @@
                     </Style>
                 </StackPanel.Resources>
                 <Button Content="Добавить"
-                        Command="{Binding AddEmployeeCommand}"/>
+                        Command="{Binding AddEmployeeCommand}"
+                        Tag="{x:Static permission:Permission.EditEmployee}"/>
                 <Button Content="Удалить"
                         Command="{Binding RemoveEmployeeCommand}"
-                        CommandParameter="{Binding ElementName=MaterialContaniner, Path=SelectedItems}"/>
+                        CommandParameter="{Binding ElementName=MaterialContaniner, Path=SelectedItems}"
+                        Tag="{x:Static permission:Permission.EditEmployee}"/>
             </StackPanel>
             <!--#endregion -->
         </Grid>
@@ -185,6 +188,10 @@
                                     <ContentPresenter VerticalAlignment="Center"
                                                       HorizontalAlignment="Stretch"
                                                       Margin="0"/>
+
+                                    <Border.InputBindings>
+                                        <MouseBinding Gesture="LeftDoubleClick" Command="{Binding EditCommand}"/>
+                                    </Border.InputBindings>
                                 </Border>
 
                                 <ControlTemplate.Triggers>

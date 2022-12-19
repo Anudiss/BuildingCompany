@@ -9,6 +9,7 @@
              d:DesignHeight="300" d:DesignWidth="230"
              d:DataContext="{d:DesignInstance vm:HouseVM}"
              Cursor="Hand">
+    
     <Grid Width="230"
           Height="300"
           Margin="0">
@@ -59,7 +60,7 @@
                                  Foreground="Snow"
                                  Width="20"
                                  Margin="0 4 5 4"/>
-                <TextBlock Text="Редактировать"
+                <TextBlock Text="Открыть"
                            VerticalAlignment="Center"
                            FontSize="14"/>
             </StackPanel>

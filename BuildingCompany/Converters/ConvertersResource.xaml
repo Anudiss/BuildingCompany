@@ -4,5 +4,7 @@
 
     <local:SystemImageConverter x:Key="SystemImageConverter"/>
     <local:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
+    <local:PermissionToVisibility x:Key="PermissionToVisibility"/>
+    <local:PermissionToBoolean x:Key="PermissionToBoolean"/>
 
 </ResourceDictionary>

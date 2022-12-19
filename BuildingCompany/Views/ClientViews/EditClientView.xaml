@@ -1,0 +1,47 @@
+﻿<UserControl x:Class="BuildingCompany.Views.ClientViews.EditClientView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:vm="clr-namespace:BuildingCompany.ViewModels.ClientViewModels"
+             xmlns:components="clr-namespace:BuildingCompany.Components"
+             xmlns:database="clr-namespace:BuildingCompany.Connection"
+             mc:Ignorable="d"
+             d:DataContext="{d:DesignInstance vm:EditClientVM}">
+
+    <Grid Width="300"
+          Margin="10 5">
+        <StackPanel Margin="5 0"
+                    Grid.Column="0">
+            <components:TextInput Label="Фамилия"
+                                  IsEnabled="{Binding IsEnabled}"
+                                  Text="{Binding Surname, Mode=TwoWay, UpdateSourceTrigger=LostFocus, ValidatesOnExceptions=True}"/>
+            <components:TextInput Label="Имя"
+                                  IsEnabled="{Binding IsEnabled}"
+                                  Text="{Binding Name, Mode=TwoWay, UpdateSourceTrigger=LostFocus, ValidatesOnExceptions=True}"/>
+            <components:TextInput Label="Отчество"
+                                  IsEnabled="{Binding IsEnabled}"
+                                  Text="{Binding Patronymic, Mode=TwoWay, UpdateSourceTrigger=LostFocus, ValidatesOnExceptions=True}"/>
+            <components:TextInput Label="Телефон"
+                                  IsEnabled="{Binding IsEnabled}"
+                                  Text="{Binding Phone, Mode=TwoWay, UpdateSourceTrigger=LostFocus, ValidatesOnExceptions=True}"/>
+            <StackPanel Orientation="Vertical">
+                <StackPanel.Style>
+                    <Style TargetType="{x:Type StackPanel}">
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding RelativeSource={RelativeSource Self}, Path=DataContext.Position}" Value="{x:Static database:Positions.Worker}">
+                                <Setter Property="Visibility" Value="Collapsed"/>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </StackPanel.Style>
+                <components:TextInput Label="Логин"
+                                      IsEnabled="{Binding IsEnabled}"
+                                      Text="{Binding Login}"/>
+                <components:TextInput Label="Пароль"
+                                      IsEnabled="{Binding IsEnabled}"
+                                      Text="{Binding Password}"/>
+            </StackPanel>
+        </StackPanel>
+    </Grid>
+</UserControl>

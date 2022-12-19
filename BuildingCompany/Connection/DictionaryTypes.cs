@@ -26,7 +26,7 @@ namespace BuildingCompany.Connection
         public static readonly List<Role> AllRoles = new List<Role>()
         {
             new Role("Клиент"),
-            new Role("Админ"),
+            new Role("Администратов"),
             new Role("Сотрудник")
         };
     }
@@ -45,15 +45,17 @@ namespace BuildingCompany.Connection
     {
         public static Stage New => AllStages[0];
         public static Stage Processing => AllStages[1];
-        public static Stage ToPay => AllStages[2];
-        public static Stage Paid => AllStages[3];
-        public static Stage Building => AllStages[4];
-        public static Stage Done => AllStages[5];
+        public static Stage Denied => AllStages[2];
+        public static Stage ToPay => AllStages[3];
+        public static Stage Paid => AllStages[4];
+        public static Stage Building => AllStages[5];
+        public static Stage Done => AllStages[6];
 
         public static readonly List<Stage> AllStages = new List<Stage>()
         {
             new Stage("Новый"),
             new Stage("Обработка"),
+            new Stage("Отклонён"),
             new Stage("К оплате"),
             new Stage("Оплачен"),
             new Stage("Стройка"),

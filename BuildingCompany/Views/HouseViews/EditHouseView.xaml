@@ -5,6 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:vm="clr-namespace:BuildingCompany.ViewModels.HouseViewModels"
              xmlns:components="clr-namespace:BuildingCompany.Components"
+             xmlns:permission="clr-namespace:BuildingCompany.Permissions"
              mc:Ignorable="d"
              d:DataContext="{d:DesignInstance vm:EditHouseVM}"
              Background="Transparent">
@@ -26,15 +27,19 @@
                     Grid.Row="0"
                     Margin="5 10">
             <components:TextInput Label="Название"
+                                  IsEnabled="{Binding IsEnabled}"
                                   FontSize="14"
                                   Text="{Binding Name, Mode=TwoWay, UpdateSourceTrigger=LostFocus, ValidatesOnExceptions=True}"/>
             <components:TextInput Label="Площадь"
+                                  IsEnabled="{Binding IsEnabled}"
                                   FontSize="14"
                                   Text="{Binding Area, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnExceptions=True}"/>
             <components:TextInput Label="Этажность"
+                                  IsEnabled="{Binding IsEnabled}"
                                   FontSize="14"
                                   Text="{Binding Floors, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnExceptions=True}"/>
             <components:TextInput Label="Цена"
+                                  IsEnabled="{Binding IsEnabled}"
                                   FontSize="14"
                                   Text="{Binding Cost, StringFormat='{}{0:C2}', ConverterCulture='ru-RU', Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnExceptions=True}"/>
         </StackPanel>
@@ -50,7 +55,8 @@
                    Margin="0 0 0 10"/>
             <Button Content="Изменить" Style="{StaticResource DefaultButton}"
                     HorizontalAlignment="Center"
-                    Command="{Binding ChangeImageCommand}"/>
+                    Command="{Binding ChangeImageCommand}"
+                    Tag="{x:Static permission:Permission.EditHouse}"/>
         </StackPanel>
         <!--#endregion-->
         <!--#region Materials-->
@@ -58,6 +64,8 @@
                   
                   Name="MaterialContainer"
                   SelectionMode="Extended" SelectionUnit="FullRow"
+                  
+                  IsReadOnly="{Binding IsReadOnly}"
                   
                   ItemsSource="{Binding Materials}"
                   d:ItemsSource="{d:SampleData ItemCount=4}"
@@ -121,9 +129,11 @@
                     <Setter Property="Margin" Value="5 2"/>
                 </Style>
             </StackPanel.Resources>
-            <Button Content="Добавить" Command="{Binding AddMaterialsCommand}"/>
+            <Button Content="Добавить" Command="{Binding AddMaterialsCommand}"
+                    Tag="{x:Static permission:Permission.EditHouse}"/>
             <Button Content="Удалить" Command="{Binding RemoveMaterialsCommand}"
-                                      CommandParameter="{Binding ElementName=MaterialContainer, Path=SelectedItems}"/>
+                                      CommandParameter="{Binding ElementName=MaterialContainer, Path=SelectedItems}"
+                    Tag="{x:Static permission:Permission.EditHouse}"/>
         </StackPanel>
         <!--#endregion-->
     </Grid>

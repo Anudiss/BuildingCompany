@@ -1,40 +1,41 @@
 ﻿using BuildingCompany.Connection;
 using BuildingCompany.Utilities;
-using BuildingCompany.ViewModels.EmployeeViewMmodels;
 using BuildingCompany.Windows.EditDialogWindow;
 
 namespace BuildingCompany.ViewModels.ClientViewModels
 {
     public class ClientVM : ViewModelBase
     {
-        private RelayCommand _editCommand;
+        private RelayCommand _editClient;
 
         public RelayCommand EditCommand =>
-            _editCommand ?? (_editCommand = new RelayCommand(arg => EditEmployee()));
+            _editClient ?? (_editClient = new RelayCommand(arg => EditClient(), arg => UserData.UserData.Instance.User.HasPermission(Permissions.Permission.ShowClient)));
 
-        private readonly Employee _employee;
+        private readonly Client _client;
 
-        public int ID => _employee.ID;
-        public string Surname => _employee.Surname;
-        public string Name => _employee.Name;
-        public string Patronymic => _employee.Patronymic;
-        public string FullName => _employee.FullName;
-        public Position Position => _employee.Position;
-        public bool IsDeleted => _employee.IsDeleted;
+        public int ID => _client.ID;
+        public string Surname => _client.Surname;
+        public string Name => _client.Name;
+        public string Patronymic => _client.Patronymic;
+        public string Phone => _client.Phone;
+        public string FullName => _client.FullName;
+        public bool IsDeleted => _client.IsDeleted;
 
-        public ClientVM(Employee employee) =>
-            _employee = employee;
+        public ClientVM(Client client) =>
+            _client = client;
 
-        private void EditEmployee()
+        private void EditClient()
         {
-            EditDialogWindow editDialog = new EditDialogWindow(new EditEmployeeVM(_employee));
+            EditDialogWindow editDialog = new EditDialogWindow(new EditClientVM(_client));
             editDialog.ShowDialog();
 
             OnPropertyChanged(nameof(ID));
+            OnPropertyChanged(nameof(Surname));
+            OnPropertyChanged(nameof(Name));
+            OnPropertyChanged(nameof(Patronymic));
             OnPropertyChanged(nameof(FullName));
-            OnPropertyChanged(nameof(Position));
         }
 
-        public void Delete() => _employee.IsDeleted = true;
+        public void Delete() => _client.Delete();
     }
 }

@@ -138,6 +138,8 @@ namespace BuildingCompany.ViewModels.EmployeeViewMmodels
         }
         public bool IsNew => _employee.ID == 0;
 
+        public bool IsEnabled => UserData.UserData.Instance.User.HasPermission(Permissions.Permission.EditEmployee);
+
 
         public EditEmployeeVM(Employee employee)
         {

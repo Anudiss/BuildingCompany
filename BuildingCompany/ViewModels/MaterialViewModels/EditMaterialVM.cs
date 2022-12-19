@@ -51,6 +51,7 @@ namespace BuildingCompany.ViewModels.MaterialViewModels
         }
         public decimal Count => _material.Count;
 
+        public bool IsEnabled => UserData.UserData.Instance.User.HasPermission(Permissions.Permission.EditMaterial);
         public bool IsNew => _material.ID == 0;
 
 

@@ -6,6 +6,7 @@
         xmlns:nav="clr-namespace:BuildingCompany.Windows.Navigation"
         xmlns:components="clr-namespace:BuildingCompany.Components"
         xmlns:user="clr-namespace:BuildingCompany.UserData"
+        xmlns:permission="clr-namespace:BuildingCompany.Permissions"
         mc:Ignorable="d"
         Title="Главное окно"
         WindowStyle="None" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" WindowState="Maximized"
@@ -121,11 +122,20 @@
                         </StackPanel>
                         <!--#endregion-->
                         <!--#region Navigation buttons-->
-                        <components:NavigationButton Icon="Home" Title="Дома" Command="{Binding HouseCommand}"/>
-                        <components:NavigationButton Icon="ProductHunt" Title="Материалы" Command="{Binding MaterialsCommand}"/>
-                        <components:NavigationButton Icon="Dropbox" Title="Постащики" Command="{Binding SupplierCommand}"/>
-                        <components:NavigationButton Icon="Users" Title="Сотрудники" Command="{Binding EmployeeCommand}"/>
-                        <components:NavigationButton Icon="Truck" Title="Поставки" Command="{Binding SupplyCommand}"/>
+                        <components:NavigationButton Icon="Home" Title="Дома" Command="{Binding HouseCommand}"
+                                                     Tag="{x:Static permission:Permission.ShowHouses}"/>
+                        <components:NavigationButton Icon="ProductHunt" Title="Материалы" Command="{Binding MaterialsCommand}"
+                                                     Tag="{x:Static permission:Permission.ShowMaterials}"/>
+                        <components:NavigationButton Icon="Dropbox" Title="Постащики" Command="{Binding SupplierCommand}"
+                                                     Tag="{x:Static permission:Permission.ShowSuppliers}"/>
+                        <components:NavigationButton Icon="Users" Title="Сотрудники" Command="{Binding EmployeeCommand}"
+                                                     Tag="{x:Static permission:Permission.ShowEmployees}"/>
+                        <components:NavigationButton Icon="Truck" Title="Поставки" Command="{Binding SupplyCommand}"
+                                                     Tag="{x:Static permission:Permission.ShowSupplies}"/>
+                        <components:NavigationButton Icon="ShoppingCart" Title="Заказы" Command="{Binding OrderCommand}"
+                                                     Tag="{x:Static permission:Permission.ShowOrders}"/>
+                        <components:NavigationButton Icon="BlackTie" Title="Клиенты" Command="{Binding ClientCommand}"
+                                                     Tag="{x:Static permission:Permission.ShowClients}"/>
                         <components:NavigationButton Icon="SignOut" Title="Выйти" Command="{Binding SignOutCommand}"/>
                         <!--#endregion-->
                     </StackPanel>

@@ -1,8 +1,10 @@
 ﻿using BuildingCompany.Utilities;
 using BuildingCompany.ViewModels;
+using BuildingCompany.ViewModels.ClientViewModels;
 using BuildingCompany.ViewModels.EmployeeViewMmodels;
 using BuildingCompany.ViewModels.HouseViewModels;
 using BuildingCompany.ViewModels.MaterialViewModels;
+using BuildingCompany.ViewModels.OrderViewModels;
 using BuildingCompany.ViewModels.SupplierViewModels;
 using BuildingCompany.ViewModels.SupplyViewModels;
 using BuildingCompany.Windows.Auth.View;
@@ -25,6 +27,8 @@ namespace BuildingCompany.Windows.Navigation
         private RelayCommand _supplierCommand;
         private RelayCommand _employeeCommand;
         private RelayCommand _supplyCommand;
+        private RelayCommand _clientCommand;
+        private RelayCommand _orderCommand;
 
         public RelayCommand HouseCommand =>
             _houseCommand ?? (_houseCommand = new RelayCommand((arg) => CurrentView = new HousePageVM()));
@@ -42,6 +46,10 @@ namespace BuildingCompany.Windows.Navigation
             _employeeCommand ?? (_employeeCommand = new RelayCommand(arg => CurrentView = new EmployeePageVM()));
         public RelayCommand SupplyCommand =>
             _supplyCommand ?? (_supplyCommand = new RelayCommand(arg => CurrentView = new SupplyPageVM()));
+        public RelayCommand ClientCommand =>
+            _clientCommand ?? (_clientCommand = new RelayCommand(arg => CurrentView = new ClientPageVM()));
+        public RelayCommand OrderCommand =>
+            _orderCommand ?? (_orderCommand = new RelayCommand(arg => CurrentView = new OrderPageVM()));
 
         public object CurrentView
         {

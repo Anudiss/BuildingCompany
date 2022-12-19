@@ -1,11 +1,9 @@
 ﻿using BuildingCompany.Connection;
 using BuildingCompany.Utilities;
-using BuildingCompany.ViewModels.MaterialViewModels;
 using BuildingCompany.Windows.SelectorDialog;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Collections.Specialized;
 using System.Data.Entity;
 using System.Linq;
 using System.Windows;
@@ -47,6 +45,8 @@ namespace BuildingCompany.ViewModels.SupplyViewModels
             }
         }
         public decimal Sum => Materials.Sum(e => e.Sum);
+        public bool IsReadOnly => !IsEnabled;
+        public bool IsEnabled => UserData.UserData.Instance.User.HasPermission(Permissions.Permission.EditSupply);
 
         public ObservableCollection<SupplyMaterialVM> Materials =>
             new ObservableCollection<SupplyMaterialVM>(_supply.Supply_Material.Select(e =>
@@ -65,6 +65,7 @@ namespace BuildingCompany.ViewModels.SupplyViewModels
             _supply = supply ?? new Supply()
             {
                 ID = DatabaseContext.Entities.Supply.Local.Last().ID + 1,
+                Supplier = DatabaseContext.Entities.Supplier.Local.First(),
                 Date = DateTime.Now
             };
             IsNew = supply == null;
@@ -154,8 +155,11 @@ namespace BuildingCompany.ViewModels.SupplyViewModels
 
         public override void ConductDocument()
         {
-            foreach (var material in Materials)
-                material.Material.Count = DatabaseContext.Entities.Supply_Material.Local.Where(s => s.Material == material.Material).Sum(s => s.Count);
+            foreach (var material in DatabaseContext.Entities.Material.Local)
+                material.Count = DatabaseContext.Entities.Supply_Material.Local.Where(s => s.Material == material)
+                                                                               .Sum(s => s.Count) -
+                    DatabaseContext.Entities.Order.Local.Where(order => order.Stage == Stages.Building || order.Stage == Stages.Done)
+                                                        .Sum(order => order.House.House_Material.Where(h => h.Material == material).Sum(houseMaterial => houseMaterial.Material.Count));
             Save();
             _supply.IsConduct = true;
         }

@@ -12,6 +12,7 @@
                 Width="300"
                 Margin="10 5">
         <components:TextInput Label="Название"
+                              IsEnabled="{Binding IsEnabled}"
                               Text="{Binding Name, UpdateSourceTrigger=LostFocus, ValidatesOnExceptions=True}"/>
     </StackPanel>
 </UserControl>

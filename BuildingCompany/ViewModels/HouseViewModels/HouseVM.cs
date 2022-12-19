@@ -9,7 +9,7 @@ namespace BuildingCompany.ViewModels.HouseViewModels
         private RelayCommand _editCommand;
 
         public RelayCommand EditCommand =>
-            _editCommand ?? (_editCommand = new RelayCommand((arg) => OpenEditHouseWindow()));
+            _editCommand ?? (_editCommand = new RelayCommand((arg) => OpenEditHouseWindow(), arg => UserData.UserData.Instance.User.HasPermission(Permissions.Permission.ShowHouse)));
 
         private readonly House _house;
 
